@@ -238,6 +238,8 @@ public class BasicConstant {
 
     public static final Long ID = 1L;
 
+    public static final Long ID_TWO = 2L;
+
     // int数组
     public static final int[] INT_ARRAY = {1, 4, 7, 3, 6, 8, 5, 2, 10, 9};
     public static final int[][] INT_ARRAY2 = {{1, 4, 7, 3, 6}, {8, 5, 2, 10, 9}};

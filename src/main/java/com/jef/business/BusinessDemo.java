@@ -1,5 +1,6 @@
 package com.jef.business;
 
+import com.jef.entity.User;
 import com.jef.util.ThreadUtil;
 import com.jef.util.TimeUtil;
 
@@ -87,5 +88,9 @@ public class BusinessDemo {
      */
     public static void doOthers() {
         System.out.println("业务处理一些其它事情");
+    }
+
+    public static User getDataFromDatabase(Long key) {
+        return User.builder().id(key).build();
     }
 }

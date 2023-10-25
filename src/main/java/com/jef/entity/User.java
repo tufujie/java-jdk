@@ -3,6 +3,8 @@ package com.jef.entity;
 import com.jef.util.DateTimeUtil;
 
 import com.google.common.collect.Lists;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import org.apache.solr.client.solrj.beans.Field;
 
 import java.io.Serializable;
@@ -17,6 +19,8 @@ import java.util.Objects;
  * @author Jef
  * @create 2018/5/15 19:18
  */
+@Builder
+@AllArgsConstructor
 public class User implements Serializable {
 
     private static final long serialVersionUID = -8114343202784128116L;
