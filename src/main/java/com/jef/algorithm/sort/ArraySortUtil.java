@@ -5,6 +5,7 @@ import com.jef.util.PrintUtil;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * 数组排序工具类
@@ -216,23 +217,27 @@ public class ArraySortUtil {
      * @date 2022/1/5
      */
     public static void bucketsort(ArrayList<Integer> list, int i) {
-        if (list == null)
+        if (list == null) {
             list.add(i);
-            //这里采用的排序方式为插入排序
+        }
+        //这里采用的排序方式为插入排序
         else {
             int flag = list.size() - 1;
             while (flag >= 0 && list.get(flag) > i) {
-                if (flag + 1 >= list.size())
+                if (flag + 1 >= list.size()) {
                     list.add(list.get(flag));
-                else
+                } else {
                     list.set(flag + 1, list.get(flag));
+                }
                 flag--;
             }
             if (flag != (list.size() - 1))
-                //注意这里是flag+1,自己可以尝试将这里换成flag看看,会出现数组越界的情况
+            //注意这里是flag+1,自己可以尝试将这里换成flag看看,会出现数组越界的情况
+            {
                 list.set(flag + 1, i);
-            else
+            } else {
                 list.add(i);
+            }
         }
     }
 
@@ -517,10 +522,12 @@ public class ArraySortUtil {
         int max = Integer.MIN_VALUE;
         // 先找出数组中的最大值与最小值
         for (int i = 0; i < array.length; i++) {
-            if (array[i] < min)
+            if (array[i] < min) {
                 min = array[i];
-            if (array[i] > max)
+            }
+            if (array[i] > max) {
                 max = array[i];
+            }
         }
         // 创建一个长度为max-min+1长度的数组来进行计数
         int[] figure = new int[max - min + 1];
@@ -573,10 +580,11 @@ public class ArraySortUtil {
         int i = 0, j = 0, k = 0;
         // 注意终止条件是&&,只要有一个不满足,循环就结束
         while (i < left.length && j < right.length) {
-            if (left[i] < right[j])
+            if (left[i] < right[j]) {
                 array[k++] = left[i++];
-            else
+            } else {
                 array[k++] = right[j++];
+            }
         }
         //上面的循环跳出之后，就说明有且仅会有一个序列还有值了，所以需要再次检查各个序列，并且下面的两个循环是互斥的，只会执行其中的一个或者都不执行
         while (i < left.length) {
@@ -666,10 +674,12 @@ public class ArraySortUtil {
         int right = 2 * i + 2;
         int big = i;
         // 判断小分支那个是大元素
-        if (left < end && array[i] < array[left])
+        if (left < end && array[i] < array[left]) {
             i = left;
-        if (right < end && array[i] < array[right])
+        }
+        if (right < end && array[i] < array[right]) {
             i = right;
+        }
         if (i != big) {
             // 交换顺序之后需要继续校验
             swap(array, i, big);
@@ -761,8 +771,9 @@ public class ArraySortUtil {
         int max = Integer.MIN_VALUE;
         //第一次遍历获得序列中的最大值
         for (int i = 0; i < array.length; i++) {
-            if (array[i] > max)
+            if (array[i] > max) {
                 max = array[i];
+            }
         }
         int k = 1;
         for (int i = 0; i < String.valueOf(max).length(); i++) {
@@ -809,4 +820,28 @@ public class ArraySortUtil {
         }
         return array;
     }
+
+    /**
+     * 递减
+     *
+     * @return
+     */
+    public static Comparator<Integer> getDownSortComparator() {
+        Comparator<Integer> newComparator = new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                // 实现递减
+                if (o1 > o2) {
+                    return -1;
+                } else if (o1 < o2) {
+                    // 前面比后面小，则触发交换位置
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+        };
+        return newComparator;
+    }
+
 }

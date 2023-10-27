@@ -20,6 +20,8 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.IntStream;
 
 /**
+ * 限流工具
+ *
  * @author Jef
  * @date 2023/10/24
  */
