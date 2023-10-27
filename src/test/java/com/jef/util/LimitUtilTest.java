@@ -1,5 +1,7 @@
 package com.jef.util;
 
+import com.jef.business.BusinessDemo;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.ExecutionException;
@@ -29,24 +31,31 @@ public class LimitUtilTest {
 
     @Test
     void testLimitInterfaceTimeTotalReq() {
-        for (int i = 0; i < 100; i++) {
-            new Thread() {
-                @Override
-                public void run() {
-                    try {
-                        LimitUtil.limitInterfaceTimeTotalReq(5L);
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }.start();
+        for (int i = 0; i < 5; i++) {
+            try {
+                LimitUtil.limitInterfaceTimeTotalReq(2L);
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     @Test
     void testAcquireByRedisAndLua() throws Exception {
-        boolean acquire = LimitUtil.acquireByRedisAndLua();
-        System.out.println("是否获得令牌：" + acquire);
+        for (int i = 0; i < 5; i++) {
+            boolean acquire = false;
+            try {
+                acquire = LimitUtil.acquireByRedisAndLua();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            System.out.println("是否获得令牌：" + acquire);
+            if (acquire) {
+                BusinessDemo.doSomeThing();
+            } else {
+                System.out.println("进行限流");
+            }
+        }
     }
 
 }

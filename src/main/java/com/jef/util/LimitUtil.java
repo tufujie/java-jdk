@@ -116,7 +116,7 @@ public class LimitUtil {
     public static boolean acquireByRedisAndLua() throws Exception {
         String luaScript = Files.toString(new File("src\\main\\java\\com\\jef\\util\\limit.lua"), Charset.defaultCharset());
         Jedis jedis = RedisJavaUtil.getAuthJedis();
-        // 此处将当前时间戳取秒数
+        // 此处将当前时间戳取秒数来模拟不同的请求IP
         String key = "ip:" + System.currentTimeMillis() / 1000;
         // 限流大小
         String limit = "2";
