@@ -3,6 +3,9 @@ package com.jef.thread.lock;
 import com.jef.business.BusinessDemo;
 import com.jef.util.ExceptionUtil;
 
+import lombok.SneakyThrows;
+
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -28,11 +31,12 @@ public class LockDemo {
         }
     }
 
-    public void insertTryLock(Thread thread) {
-        boolean locked = lock.tryLock();
+    public void insertTryLock(Thread thread) throws InterruptedException {
+        // 设置超时时间，避免死锁
+        boolean locked = lock.tryLock(2, TimeUnit.SECONDS);
         if (locked) {
             try {
-                BusinessDemo.taskHasReturn("Lock");
+                BusinessDemo.taskHasReturn("tryLock");
             } catch (Exception e) {
                 ExceptionUtil.getExceptionStackTraceMessage("锁异常", e);
             } finally {
@@ -62,6 +66,7 @@ public class LockDemo {
         }.start();
 
         new Thread() {
+            @SneakyThrows
             @Override
             public void run() {
                 test.insertTryLock(Thread.currentThread());
