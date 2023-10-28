@@ -1,7 +1,7 @@
-package com.jef.designpattern.creation.factory.withDesign.abstractFactory.concrete;
+package com.jef.designpattern.creation.factory.withDesign.factoryMethod.factory;
 
-import com.jef.designpattern.creation.factory.withDesign.abstractFactory.framework.Screen;
-import com.jef.designpattern.creation.factory.withDesign.abstractFactory.framework.ScreenFactory;
+import com.jef.designpattern.creation.factory.withDesign.factoryMethod.product.PhilipsScreen;
+import com.jef.designpattern.creation.factory.withDesign.factoryMethod.product.Screen;
 
 /**
  * 具体产品工厂-飞利浦显示器工厂

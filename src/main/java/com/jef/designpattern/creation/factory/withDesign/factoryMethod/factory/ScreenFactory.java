@@ -1,8 +1,11 @@
-package com.jef.designpattern.creation.factory.withDesign.abstractFactory.framework;
+package com.jef.designpattern.creation.factory.withDesign.factoryMethod.factory;
+
+import com.jef.designpattern.creation.factory.withDesign.factoryMethod.product.Screen;
 
 /**
  * 工厂-生产显示器
  * 使用抽象类的原因：有相同的方法实现和不同的方法实现
+ *
  * @author Jef
  * @date 2023/6/27
  */

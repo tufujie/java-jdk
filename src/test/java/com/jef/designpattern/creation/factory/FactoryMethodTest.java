@@ -1,26 +1,30 @@
 package com.jef.designpattern.creation.factory;
 
-import com.jef.designpattern.BasicDesign;
-import com.jef.designpattern.creation.factory.withDesign.factoryMethod.IScreen;
-import com.jef.designpattern.creation.factory.withDesign.factoryMethod.ScreenFactory;
+import com.jef.designpattern.creation.factory.withDesign.factoryMethod.factory.PhilipsScreenFactory;
+import com.jef.designpattern.creation.factory.withDesign.factoryMethod.factory.SamsungScreenFactory;
+import com.jef.designpattern.creation.factory.withDesign.factoryMethod.factory.ScreenFactory;
+import com.jef.designpattern.creation.factory.withDesign.factoryMethod.product.Screen;
+
 import org.junit.jupiter.api.Test;
 
 /**
+ * 工厂方法客户端
+ *
  * @author Jef
- * @date 2021/12/6
+ * @date 2023/6/27
  */
 public class FactoryMethodTest {
 
     @Test
-    public void testFactoryMethod() {
-        // 想看三星显示器的制造工艺
-        String text = BasicDesign.SAMSUNG_SCREEN;
-        IScreen screen = ScreenFactory.createApi(text);
-        screen.operation(2);
-        // 突然又想看飞利浦的制造工艺
-        text = BasicDesign.PHILIPS_SCREEN;
-        screen = ScreenFactory.createApi(text);
-        screen.operation(3);
-    }
+    void testFactoryMethod() {
+        // 飞利浦显示器
+        ScreenFactory philipsScreenFactory = new PhilipsScreenFactory();
+        Screen philipsScreen = philipsScreenFactory.create();
+        philipsScreen.watch();
 
+        // 三星显示器
+        ScreenFactory samsungScreenFactory = new SamsungScreenFactory();
+        Screen samsungScreen = samsungScreenFactory.create();
+        samsungScreen.watch();
+    }
 }
