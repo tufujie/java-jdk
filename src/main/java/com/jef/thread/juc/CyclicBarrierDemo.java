@@ -9,7 +9,7 @@ import java.util.concurrent.CyclicBarrier;
  */
 public class CyclicBarrierDemo extends Thread {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws BrokenBarrierException, InterruptedException {
         int n = 4;
         CyclicBarrier cyclicBarrier = new CyclicBarrier(n);
         for (int i = 0; i < n; i++) {
@@ -34,6 +34,5 @@ public class CyclicBarrierDemo extends Thread {
         } catch (BrokenBarrierException e) {
             e.printStackTrace();
         }
-        System.out.println("所有线程写入完毕，继续处理其他任务，比如数据合并等操作");
     }
 }
