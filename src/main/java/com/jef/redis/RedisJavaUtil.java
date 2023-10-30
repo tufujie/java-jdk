@@ -3,12 +3,14 @@ package com.jef.redis;
 import com.jef.util.PrintUtil;
 
 import org.redisson.Redisson;
+import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.params.SetParams;
 
 import java.util.Collections;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Jef
@@ -89,6 +91,22 @@ public class RedisJavaUtil {
                 .setAddress("redis://localhost:6379").setPassword("root");
         RedissonClient redisson = Redisson.create(config);
         return redisson;
+    }
+
+    /**
+     * 尝试获取锁
+     *
+     * @param time     超时时间
+     * @param timeUnit 时间单位
+     * @return 是否获得锁
+     */
+    public static boolean tryLock(RLock lock, long time, TimeUnit timeUnit) {
+        try {
+            return lock.tryLock(time, timeUnit);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }
