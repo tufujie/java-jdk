@@ -1,6 +1,6 @@
 package com.jef.thread.useThread;
 
-import com.jef.business.BusinessDemo;
+import com.jef.util.BusinessUtil;
 import com.jef.util.TimeUtil;
 
 import java.util.Date;
@@ -22,7 +22,7 @@ public class ExtendsThreadTest extends Thread {
 
     @Override
     public void run() {
-        BusinessDemo.taskHasReturn(taskNum, "Extend Thread");
+        BusinessUtil.taskHasReturn(taskNum, "Extend Thread");
     }
 
     public static void main(String[] args) {

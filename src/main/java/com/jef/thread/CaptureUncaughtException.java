@@ -1,6 +1,6 @@
 package com.jef.thread;
 
-import com.jef.business.BusinessDemo;
+import com.jef.util.BusinessUtil;
 import com.jef.util.PrintUtil;
 
 import java.util.concurrent.ExecutorService;
@@ -18,7 +18,7 @@ class ExceptionThread implements Runnable {
     @Override
     public void run() {
         Thread t = Thread.currentThread();
-        BusinessDemo.taskHasReturn("Thread Exception");
+        BusinessUtil.taskHasReturn("Thread Exception");
         System.out.println("异常处理 = " + t.getUncaughtExceptionHandler());
         throw new RuntimeException();
     }

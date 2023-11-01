@@ -1,6 +1,5 @@
 package com.jef.util;
 
-import com.jef.business.BusinessDemo;
 import com.jef.redis.RedisJavaUtil;
 
 import com.google.common.cache.CacheBuilder;
@@ -52,14 +51,14 @@ public class LimitUtil {
         System.out.println("稳定限流器");
         IntStream.range(1, 11).forEach(a -> {
             double acquire = burstyLimiter.acquire();
-            BusinessDemo.doSomeThing();
+            BusinessUtil.doSomeThing();
             System.out.println("第" + a + "次请求等待时间：" + df.format(acquire));
         });
 
         System.out.println("预热限流器");
         IntStream.range(1, 11).forEach(a -> {
             double acquire = warmingUpLimiter.acquire();
-            BusinessDemo.doSomeThing();
+            BusinessUtil.doSomeThing();
             System.out.println("第" + a + "次请求等待时间：" + df.format(acquire));
         });
     }
@@ -77,7 +76,7 @@ public class LimitUtil {
                 return;
             }
             // 处理请求
-            BusinessDemo.doSomeThing();
+            BusinessUtil.doSomeThing();
         } finally {
             atomic.decrementAndGet();
         }
@@ -105,7 +104,7 @@ public class LimitUtil {
                 continue;
             }
             //业务处理
-            BusinessDemo.doSomeThing();
+            BusinessUtil.doSomeThing();
         }
     }
 

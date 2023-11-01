@@ -1,7 +1,7 @@
 package com.jef.thread;
 
-import com.jef.business.BusinessDemo;
 import com.jef.thread.useThread.ImplRunnableTest;
+import com.jef.util.BusinessUtil;
 import com.jef.util.ThreadUtil;
 
 import org.junit.Test;
@@ -28,7 +28,7 @@ public class ThreadUtilTest {
         StopWatch stopWatchTwo = new StopWatch();
         stopWatchTwo.start();
         for (int num = count; num > 0; num--) {
-            BusinessDemo.taskHasReturn(num, "直接for循环调用");
+            BusinessUtil.taskHasReturn(num, "直接for循环调用");
         }
         stopWatchTwo.stop();
         System.out.println("直接for循环调用" + stopWatchTwo.getTotalTimeSeconds() + "s");
@@ -64,7 +64,7 @@ public class ThreadUtilTest {
             int finalNum = num;
             Runnable runnable = () -> {
                 try {
-                    BusinessDemo.taskHasReturn(finalNum, "使用线程");
+                    BusinessUtil.taskHasReturn(finalNum, "使用线程");
                 } catch (Exception e) {
 
                 }
@@ -88,7 +88,7 @@ public class ThreadUtilTest {
             int finalNum = num;
             Runnable runnable = () -> {
                 try {
-                    BusinessDemo.taskHasReturn(finalNum, "使用线程");
+                    BusinessUtil.taskHasReturn(finalNum, "使用线程");
                 } catch (Exception e) {
 
                 }

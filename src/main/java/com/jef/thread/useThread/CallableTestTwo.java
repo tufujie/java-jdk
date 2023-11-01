@@ -1,6 +1,6 @@
 package com.jef.thread.useThread;
 
-import com.jef.business.BusinessDemo;
+import com.jef.util.BusinessUtil;
 import com.jef.util.TimeUtil;
 
 import java.util.Date;
@@ -24,7 +24,7 @@ public class CallableTestTwo<V> implements Callable {
 
     @Override
     public Integer call() throws Exception {
-        return BusinessDemo.taskHasReturn(taskNum, "Callable FutureTask");
+        return BusinessUtil.taskHasReturn(taskNum, "Callable FutureTask");
     }
 
     public static void main(String[] args) {

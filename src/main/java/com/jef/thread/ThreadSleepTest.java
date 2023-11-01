@@ -1,6 +1,6 @@
 package com.jef.thread;
 
-import com.jef.business.BusinessDemo;
+import com.jef.util.BusinessUtil;
 import com.jef.util.TimeUtil;
 
 import java.util.Date;
@@ -26,7 +26,7 @@ public class ThreadSleepTest implements Runnable {
     @Override
     public void run() {
         try {
-            BusinessDemo.taskHasReturn(num, "Thread.sleep()");
+            BusinessUtil.taskHasReturn(num, "Thread.sleep()");
             Date dateStart = new Date();
             // 休眠。使任务终止执行给定的时间，每个任务都将要睡眠（即阻塞），这使得线程调度器可以切换到另一个线程，进而驱动另一个任务
             Thread.sleep(1000);

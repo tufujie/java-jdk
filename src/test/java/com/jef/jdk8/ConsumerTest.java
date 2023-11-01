@@ -1,8 +1,8 @@
 package com.jef.jdk8;
 
-import com.jef.business.BusinessDemo;
 import com.jef.constant.BasicConstant;
 import com.jef.entity.OrderInfo;
+import com.jef.util.BusinessUtil;
 import com.jef.util.NumberUtils;
 import com.jef.util.PrintUtil;
 import com.jef.util.StringUtils;
@@ -97,7 +97,7 @@ public class ConsumerTest {
         c4.accept(BasicConstant.HELLO_WORLD, BasicConstant.USER_NAME);
 
         PrintUtil.printSplitLine();
-        Consumer<Integer> consumer = BusinessDemo::taskNoReturn;
+        Consumer<Integer> consumer = BusinessUtil::taskNoReturn;
         consumer.accept(5);
 
         PrintUtil.printSplitLine();

@@ -1,6 +1,6 @@
 package com.jef.thread.useThread;
 
-import com.jef.business.BusinessDemo;
+import com.jef.util.BusinessUtil;
 
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
@@ -51,6 +51,6 @@ class TaskWithResult implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
-        return BusinessDemo.taskHasReturn(num, "Callable Future");
+        return BusinessUtil.taskHasReturn(num, "Callable Future");
     }
 }

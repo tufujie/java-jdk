@@ -1,6 +1,6 @@
 package com.jef.thread;
 
-import com.jef.business.BusinessDemo;
+import com.jef.util.BusinessUtil;
 
 public class ThreadYieldTest implements Runnable {
     protected int num;
@@ -11,7 +11,7 @@ public class ThreadYieldTest implements Runnable {
 
     @Override
     public void run() {
-        BusinessDemo.taskHasReturn(num, "Thread.yield()");
+        BusinessUtil.taskHasReturn(num, "Thread.yield()");
         /*
         Thread.yield()可以将CPU从一个线程转移给另一个线程
         在run()中对静态方法Thread.yieldO的调用是对线程调度器(Java线程机制的一 部分，可以将CPU从一一个线程转移给另一个线程) 的一种建议，

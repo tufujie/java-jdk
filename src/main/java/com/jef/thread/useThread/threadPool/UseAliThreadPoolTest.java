@@ -1,6 +1,6 @@
 package com.jef.thread.useThread.threadPool;
 
-import com.jef.business.BusinessDemo;
+import com.jef.util.BusinessUtil;
 import com.jef.util.ThreadUtil;
 import com.jef.util.TimeUtil;
 
@@ -30,7 +30,7 @@ public class UseAliThreadPoolTest {
                 Runnable runnable = new Runnable() {
                     @Override
                     public void run() {
-                        BusinessDemo.taskNoReturn(finalI);
+                        BusinessUtil.taskNoReturn(finalI);
                     }
                 };
                 ThreadUtil.executeThread(i + "", runnable);
@@ -57,7 +57,7 @@ public class UseAliThreadPoolTest {
                 Runnable runnable = new Runnable() {
                     @Override
                     public void run() {
-                        BusinessDemo.taskNoReturn(finalI);
+                        BusinessUtil.taskNoReturn(finalI);
                     }
                 };
                 ThreadUtil.executeThreadTwo(i + "", runnable);

@@ -1,6 +1,6 @@
 package com.jef.thread.lock;
 
-import com.jef.business.BusinessDemo;
+import com.jef.util.BusinessUtil;
 import com.jef.util.ExceptionUtil;
 
 import lombok.SneakyThrows;
@@ -22,7 +22,7 @@ public class LockDemo {
     public void insert(Thread thread) {
         lock.lock();
         try {
-            BusinessDemo.taskHasReturn("Lock");
+            BusinessUtil.taskHasReturn("Lock");
         } catch (Exception e) {
             ExceptionUtil.getExceptionStackTraceMessage("锁异常", e);
         } finally {
@@ -36,7 +36,7 @@ public class LockDemo {
         boolean locked = lock.tryLock(2, TimeUnit.SECONDS);
         if (locked) {
             try {
-                BusinessDemo.taskHasReturn("tryLock");
+                BusinessUtil.taskHasReturn("tryLock");
             } catch (Exception e) {
                 ExceptionUtil.getExceptionStackTraceMessage("锁异常", e);
             } finally {

@@ -1,8 +1,8 @@
 package com.jef.cache;
 
-import com.jef.business.BusinessDemo;
 import com.jef.constant.BasicConstant;
 import com.jef.redis.RedisJavaUtil;
+import com.jef.util.BusinessUtil;
 
 import org.junit.jupiter.api.Test;
 import org.redisson.api.RLock;
@@ -34,7 +34,7 @@ public class RedisLockTest {
             jedis.expire(key, expireTime);
             try {
                 // 业务处理
-                BusinessDemo.doSomeThing();
+                BusinessUtil.doSomeThing();
             } finally {
                 // 释放锁
                 jedis.del(key);
@@ -59,7 +59,7 @@ public class RedisLockTest {
             System.out.println("当前事务获取锁");
             try {
                 // 业务处理
-                BusinessDemo.doSomeThing();
+                BusinessUtil.doSomeThing();
             } finally {
                 // 释放锁
                 jedis.del(key);

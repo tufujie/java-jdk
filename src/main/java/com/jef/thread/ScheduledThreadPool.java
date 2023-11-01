@@ -1,10 +1,8 @@
 package com.jef.thread;
 
-import com.jef.business.BusinessDemo;
 import com.jef.util.TimeUtil;
 
 import java.util.Date;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;

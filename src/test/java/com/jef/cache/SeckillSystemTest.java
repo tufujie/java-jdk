@@ -1,7 +1,7 @@
 package com.jef.cache;
 
-import com.jef.business.BusinessDemo;
 import com.jef.redis.RedisJavaUtil;
+import com.jef.util.BusinessUtil;
 
 import org.junit.jupiter.api.Test;
 import org.redisson.api.RLock;
@@ -38,7 +38,7 @@ public class SeckillSystemTest {
                 }
                 try {
                     jedis.rpush(productName, String.valueOf(userId));
-                    BusinessDemo.doSomeThing();
+                    BusinessUtil.doSomeThing();
                 } finally {
                     lock.unlock();
                 }

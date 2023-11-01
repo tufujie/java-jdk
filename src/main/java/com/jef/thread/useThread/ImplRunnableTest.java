@@ -1,6 +1,6 @@
 package com.jef.thread.useThread;
 
-import com.jef.business.BusinessDemo;
+import com.jef.util.BusinessUtil;
 import com.jef.util.TimeUtil;
 
 import java.util.Date;
@@ -23,7 +23,7 @@ public class ImplRunnableTest implements Runnable {
 
     @Override
     public void run() {
-        BusinessDemo.taskHasReturn(taskNum, "Impl Runable");
+        BusinessUtil.taskHasReturn(taskNum, "Impl Runable");
         Thread.yield();
     }
 

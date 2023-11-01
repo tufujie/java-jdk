@@ -1,6 +1,6 @@
 package com.jef.thread.synchronizedTest;
 
-import com.jef.business.BusinessDemo;
+import com.jef.util.BusinessUtil;
 
 /**
  * 对象锁实例：synchronized方法
@@ -19,7 +19,7 @@ public class SynchronizedMethod implements Runnable {
     }
 
     public synchronized void method() {
-        BusinessDemo.taskHasReturn("SynchronizedMethod");
+        BusinessUtil.taskHasReturn("SynchronizedMethod");
     }
 
     public static void main(String[] args) throws Exception {

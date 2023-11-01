@@ -1,6 +1,6 @@
 package com.jef.thread;
 
-import com.jef.business.BusinessDemo;
+import com.jef.util.BusinessUtil;
 import com.jef.util.PrintUtil;
 import com.jef.util.ThreadUtil;
 
@@ -28,7 +28,7 @@ class Sleeper extends Thread {
             return;
         }
         PrintUtil.printf(getName() + " 被唤起");
-        BusinessDemo.taskHasReturn("Thread.join()");
+        BusinessUtil.taskHasReturn("Thread.join()");
     }
 }
 
@@ -56,7 +56,7 @@ class Joiner extends Thread {
         }
         ThreadUtil.printThreadInfo(sleeper);
         PrintUtil.print(getName() + " 加入线程完成");
-        BusinessDemo.taskHasReturn("Thread.join()");
+        BusinessUtil.taskHasReturn("Thread.join()");
     }
 }
 

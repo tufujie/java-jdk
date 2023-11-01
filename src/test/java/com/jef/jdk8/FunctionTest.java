@@ -1,10 +1,10 @@
 package com.jef.jdk8;
 
-import com.jef.business.BusinessDemo;
 import com.jef.constant.BasicConstant;
 import com.jef.constant.BasicEntity;
 import com.jef.constant.BasicList;
 import com.jef.entity.User;
+import com.jef.util.BusinessUtil;
 import com.jef.util.StringUtils;
 
 import com.google.common.collect.Maps;
@@ -64,7 +64,7 @@ public class FunctionTest {
 
     @Test
     public void testFunctionApply() {
-        handle(tradeNo -> BusinessDemo.taskHasReturn(tradeNo), "testNo");
+        handle(tradeNo -> BusinessUtil.taskHasReturn(tradeNo), "testNo");
     }
 
     /**

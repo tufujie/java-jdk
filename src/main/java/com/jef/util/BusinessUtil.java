@@ -1,8 +1,6 @@
-package com.jef.business;
+package com.jef.util;
 
 import com.jef.entity.User;
-import com.jef.util.ThreadUtil;
-import com.jef.util.TimeUtil;
 
 import java.util.Date;
 import java.util.Map;
@@ -13,7 +11,7 @@ import java.util.Map;
  * @author Jef
  * @date 2018/12/28 15:14
  */
-public class BusinessDemo {
+public class BusinessUtil {
 
     /**
      * 实际业务
@@ -92,5 +90,13 @@ public class BusinessDemo {
 
     public static User getDataFromDatabase(Long key) {
         return User.builder().id(key).build();
+    }
+
+    public static String getDataFromDatabase(String key) {
+        return "test";
+    }
+
+    public static void updateTable() {
+        System.out.println("业务单据更新");
     }
 }

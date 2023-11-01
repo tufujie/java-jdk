@@ -7,12 +7,12 @@ package com.jef.designpattern.structure.flyweight;
  * @date 2021/12/8
  */
 public class ActivityController {
-    private RedisUtils redisUtils = new RedisUtils();
+    private StockUtils stockUtils = new StockUtils();
 
     public Activity queryActivityInfo(Long id, Stock stock) {
         Activity activity = ActivityFactory.getActivity(id);
         // 模拟从Redis中获取库存变化信息
-        stock.setUsed(redisUtils.getStockUsed());
+        stock.setUsed(stockUtils.getStockUsed());
         activity.setStock(stock);
         return activity;
     }

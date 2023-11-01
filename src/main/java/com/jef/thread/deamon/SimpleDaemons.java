@@ -1,6 +1,6 @@
 package com.jef.thread.deamon;
 
-import com.jef.business.BusinessDemo;
+import com.jef.util.BusinessUtil;
 import com.jef.util.ThreadUtil;
 
 import java.util.concurrent.TimeUnit;
@@ -17,7 +17,7 @@ public class SimpleDaemons implements Runnable {
         try {
             // 如果main()函数还在执行，这里会一直执行
             while (true) {
-                BusinessDemo.taskHasReturn(num, "Thread.setDaemon()");
+                BusinessUtil.taskHasReturn(num, "Thread.setDaemon()");
                 ThreadUtil.printCurrentThreadIsDaemon();
                 TimeUnit.MILLISECONDS.sleep(100);
             }

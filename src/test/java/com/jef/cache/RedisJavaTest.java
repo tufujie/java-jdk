@@ -5,6 +5,7 @@ import com.jef.redis.RedisJavaUtil;
 import com.jef.util.PrintUtil;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Tuple;
@@ -177,6 +178,32 @@ public class RedisJavaTest {
         jedis.del(BasicConstant.LOGIN_OBJECT_KEY);
         userName = jedis.hget(BasicConstant.LOGIN_OBJECT_KEY, BasicConstant.USER_NAME_KEY);
         System.out.println("userName=" + userName);
+    }
+
+    /**
+     * 数据读取
+     */
+    @DisplayName("数据读取，先缓存，再数据库")
+    @Test
+    public void testObjectGet() {
+        String key = BasicConstant.LOGIN_OBJECT_KEY;
+        String value = RedisJavaUtil.get(key);
+        System.out.println(value);
+        value = RedisJavaUtil.get(key);
+        System.out.println(value);
+    }
+
+    @DisplayName("数据更新")
+    @Test
+    public void testObjectUpdate() throws InterruptedException {
+        String key = BasicConstant.LOGIN_OBJECT_KEY;
+        String value = RedisJavaUtil.get(key);
+        System.out.println(value);
+
+        RedisJavaUtil.update(key);
+        // 数据更新后，获取数据时仍然从数据库取
+        value = RedisJavaUtil.get(key);
+        System.out.println(value);
     }
 
 }

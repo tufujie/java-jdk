@@ -1,6 +1,6 @@
 package com.jef.thread.synchronizedTest;
 
-import com.jef.business.BusinessDemo;
+import com.jef.util.BusinessUtil;
 
 /**
  * 类锁：synchronized(*.class)代码块
@@ -29,7 +29,7 @@ public class SynchronizedClass implements Runnable {
 
     public void method() {
         synchronized (SynchronizedClass.class) {
-            BusinessDemo.taskHasReturn("SynchronizedClass");
+            BusinessUtil.taskHasReturn("SynchronizedClass");
         }
     }
 }

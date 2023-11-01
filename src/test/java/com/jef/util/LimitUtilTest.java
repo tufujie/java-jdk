@@ -1,7 +1,5 @@
 package com.jef.util;
 
-import com.jef.business.BusinessDemo;
-
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.ExecutionException;
@@ -51,7 +49,7 @@ public class LimitUtilTest {
             }
             System.out.println("是否获得令牌：" + acquire);
             if (acquire) {
-                BusinessDemo.doSomeThing();
+                BusinessUtil.doSomeThing();
             } else {
                 System.out.println("进行限流");
             }

@@ -1,6 +1,6 @@
 package com.jef.thread.synchronizedTest;
 
-import com.jef.business.BusinessDemo;
+import com.jef.util.BusinessUtil;
 
 /**
  * 对象锁实例: 代码块形式
@@ -25,7 +25,7 @@ public class SynchronizedObject implements Runnable {
     @Override
     public void run() {
         synchronized (new SynchronizedObject()) {
-            BusinessDemo.taskHasReturn("SynchronizedObject");
+            BusinessUtil.taskHasReturn("SynchronizedObject");
         }
     }
 }

@@ -1,6 +1,8 @@
 package com.jef.redis;
 
+import com.jef.util.BusinessUtil;
 import com.jef.util.PrintUtil;
+import com.jef.util.StringUtils;
 
 import org.redisson.Redisson;
 import org.redisson.api.RLock;
@@ -107,6 +109,50 @@ public class RedisJavaUtil {
             e.printStackTrace();
         }
         return false;
+    }
+
+    /**
+     * 查询数据
+     *
+     * @param key
+     * @return
+     */
+    public static String get(String key) {
+        Jedis cache = getAuthJedis();
+        // 从缓存中获取数据
+        String cacheValue = cache.get(key);
+        // 缓存为空
+        if (StringUtils.isBlank(cacheValue)) {
+            System.out.println("缓存没有，从数据库读取");
+            // 从存储中获取
+            String storageValue = BusinessUtil.getDataFromDatabase(key);
+            cache.set(key, storageValue);
+            // 如果存储数据为空， 需要设置一个过期时间(5分钟，300秒)
+            if (storageValue == null) {
+                cache.expire(key, 60 * 5);
+            }
+            return storageValue;
+        } else {
+            System.out.println("缓存存在，直接返回缓存");
+            // 缓存非空
+            return cacheValue;
+        }
+    }
+
+    /**
+     * 更新数据
+     * 延迟双删
+     *
+     * @param key
+     * @return
+     */
+    public static void update(String key) throws InterruptedException {
+        Jedis cache = getAuthJedis();
+        cache.del(key);
+        BusinessUtil.updateTable();
+        // 睡眠时间可以根据get方法的时长进行设置
+        Thread.sleep(1000);
+        cache.del(key);
     }
 
 }

@@ -1,12 +1,13 @@
 package com.jef.reflect;
 
-import com.jef.business.BusinessDemo;
 import com.jef.constant.BasicConstant;
 import com.jef.constant.BasicEntity;
 import com.jef.entity.TestAll;
 import com.jef.entity.User;
+import com.jef.util.BusinessUtil;
 import com.jef.util.PrintUtil;
 import com.jef.util.ReflectionUtil;
+
 import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
@@ -94,7 +95,7 @@ public class ReflectTest {
      */
     @Test
     public void testReflectInvokeMethod() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        BusinessDemo businessDemo = new BusinessDemo();
+        BusinessUtil businessDemo = new BusinessUtil();
         Class clazz = businessDemo.getClass();
         // 方法参数是Map
         Method methodMap = clazz.getDeclaredMethod("handlerBusiness", Map.class);

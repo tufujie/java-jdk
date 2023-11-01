@@ -1,6 +1,6 @@
 package com.jef.thread.deamon;
 
-import com.jef.business.BusinessDemo;
+import com.jef.util.BusinessUtil;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -17,7 +17,7 @@ public class DeamonFromFactory implements Runnable {
     public void run() {
         try {
             while (true) {
-                BusinessDemo.taskHasReturn(num, "DeamonThreadFactory");
+                BusinessUtil.taskHasReturn(num, "DeamonThreadFactory");
                 TimeUnit.MILLISECONDS.sleep(100);
             }
         } catch (InterruptedException e) {

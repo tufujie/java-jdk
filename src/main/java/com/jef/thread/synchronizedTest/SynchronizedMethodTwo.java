@@ -1,6 +1,6 @@
 package com.jef.thread.synchronizedTest;
 
-import com.jef.business.BusinessDemo;
+import com.jef.util.BusinessUtil;
 
 /**
  * 两个线程同时访问两个对象的相同的synchronized方法
@@ -18,7 +18,7 @@ public class SynchronizedMethodTwo implements Runnable {
     }
 
     public synchronized void method() {
-        BusinessDemo.taskHasReturn("SynchronizedMethod");
+        BusinessUtil.taskHasReturn("SynchronizedMethod");
     }
 
     public static void main(String[] args) throws Exception {

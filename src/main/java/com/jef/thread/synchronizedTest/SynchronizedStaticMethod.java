@@ -1,6 +1,6 @@
 package com.jef.thread.synchronizedTest;
 
-import com.jef.business.BusinessDemo;
+import com.jef.util.BusinessUtil;
 
 /**
  * 类锁：synchronized加在static方法上
@@ -18,7 +18,7 @@ public class SynchronizedStaticMethod implements Runnable {
     }
 
     public static synchronized void method() {
-        BusinessDemo.taskHasReturn("SynchronizedMethod");
+        BusinessUtil.taskHasReturn("SynchronizedMethod");
     }
 
     /**

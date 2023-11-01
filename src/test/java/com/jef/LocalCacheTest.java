@@ -1,8 +1,8 @@
 package com.jef;
 
-import com.jef.business.BusinessDemo;
 import com.jef.constant.BasicConstant;
 import com.jef.entity.User;
+import com.jef.util.BusinessUtil;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
@@ -41,7 +41,7 @@ public class LocalCacheTest {
                         new CacheLoader<Long, User>() {
                             @Override
                             public User load(Long key) throws Exception {
-                                return BusinessDemo.getDataFromDatabase(key);
+                                return BusinessUtil.getDataFromDatabase(key);
                             }
 
                         });
@@ -66,7 +66,7 @@ public class LocalCacheTest {
                         new CacheLoader<Long, User>() {
                             @Override
                             public User load(Long key) throws Exception {
-                                return BusinessDemo.getDataFromDatabase(key);
+                                return BusinessUtil.getDataFromDatabase(key);
                             }
 
                         });
