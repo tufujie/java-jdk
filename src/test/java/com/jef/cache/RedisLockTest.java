@@ -10,6 +10,7 @@ import org.redisson.api.RedissonClient;
 import redis.clients.jedis.Jedis;
 
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Jef
@@ -19,21 +20,43 @@ public class RedisLockTest {
 
     /**
      * Redis分布式锁
+     * setnx + 过期时间
      */
     @Test
     void testSetNx() {
         Jedis jedis = RedisJavaUtil.getAuthJedis();
         String key = BasicConstant.LOGIN_OBJECT_KEY;
         // 实现锁的超时释放
-        int expireTime = 60;
+        int expireTime = 10;
         // 在Spring中，redisTemplate.opsForValue().setIfAbsent()
-        // 优化
-      /*  if ("OK".equals(jedis.setex(key, expireTime, BasicConstant.USER_NAME))) {
-
-        }*/
         if (jedis.setnx(key, BasicConstant.USER_NAME) == 1) {
             System.out.println("当前事务获取锁");
             jedis.expire(key, expireTime);
+            try {
+                // 业务处理
+                BusinessDemo.doSomeThing();
+            } finally {
+                // 释放锁
+                jedis.del(key);
+            }
+
+        } else {
+            System.out.println("被其它事务占用");
+        }
+    }
+
+    /**
+     * Redis分布式锁
+     * setex
+     */
+    @Test
+    void testSetEx() {
+        Jedis jedis = RedisJavaUtil.getAuthJedis();
+        String key = BasicConstant.LOGIN_OBJECT_KEY;
+        // 实现锁的超时释放
+        int expireTime = 10;
+        if ("OK".equals(jedis.setex(key, expireTime, BasicConstant.USER_NAME))) {
+            System.out.println("当前事务获取锁");
             try {
                 // 业务处理
                 BusinessDemo.doSomeThing();
@@ -78,32 +101,36 @@ public class RedisLockTest {
     }
 
     @Test
-    public void testReduceStockByRedisson() {
+    public void testReduceStockByRedisson() throws InterruptedException {
         RedissonClient redissonClient = RedisJavaUtil.getRedissonClient();
         Jedis jedis = RedisJavaUtil.getAuthJedis();
         RLock lock = redissonClient.getLock("redisson:stockLock");
         String STOCKKEY = "stock";
         // 初始化为10个库存
         jedis.set(STOCKKEY, "10");
+        System.out.println("开始库存为" + jedis.get(STOCKKEY));
+        long expireTime = 10L;
         for (int i = 0; i < 20; i++) {
-            try {
-                // 加锁
-                lock.lock();
-                String stock = jedis.get(STOCKKEY);
-                int stockNum = Integer.parseInt(stock);
-                if (stockNum > 0) {
-                    // 设置库存减1
-                    stockNum--;
-                    jedis.set(STOCKKEY, stockNum + "");
-                    System.out.println("设置库存" + stockNum);
-                } else {
-                    System.out.println("库存不足");
+            // 尝试获取锁
+            boolean locked = lock.tryLock(expireTime, TimeUnit.SECONDS);
+            if (locked) {
+                try {
+                    String stock = jedis.get(STOCKKEY);
+                    int stockNum = Integer.parseInt(stock);
+                    if (stockNum > 0) {
+                        // 设置库存减1
+                        stockNum--;
+                        jedis.set(STOCKKEY, stockNum + "");
+                        System.out.println("库存-1，设置库存" + stockNum);
+                    } else {
+                        System.out.println("库存不足");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    // 释放锁
+                    lock.unlock();
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                // 释放锁
-                lock.unlock();
             }
         }
     }

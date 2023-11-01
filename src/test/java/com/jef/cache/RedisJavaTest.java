@@ -48,6 +48,23 @@ public class RedisJavaTest {
     }
 
     /**
+     * 实现消息队列
+     */
+    @Test
+    public void testMessageQueue() {
+        Jedis jedis = RedisJavaUtil.getAuthJedis();
+        String key = "site-list";
+        // 存储数据到列表中
+        jedis.rpush(key, "Runoob");
+        jedis.rpush(key, "Google");
+        jedis.rpush(key, "Taobao");
+
+        System.out.println(jedis.lpop(key));
+        System.out.println(jedis.lpop(key));
+        System.out.println(jedis.lpop(key));
+    }
+
+    /**
      * Redis Java Set(集合) 实例
      */
     @Test
