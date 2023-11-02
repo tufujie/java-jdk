@@ -4,6 +4,11 @@ import com.jef.constant.BasicConstant;
 import com.jef.redis.RedisJavaUtil;
 import com.jef.util.BusinessUtil;
 
+import org.apache.curator.framework.CuratorFramework;
+import org.apache.curator.framework.CuratorFrameworkFactory;
+import org.apache.curator.framework.recipes.locks.InterProcessMutex;
+import org.apache.curator.retry.ExponentialBackoffRetry;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
@@ -13,10 +18,12 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 分布式锁
+ *
  * @author Jef
  * @date 2023/10/29
  */
-public class RedisLockTest {
+public class DistributedLockTest {
 
     /**
      * Redis分布式锁
@@ -133,6 +140,33 @@ public class RedisLockTest {
                 }
             }
         }
+    }
+
+    @DisplayName("Zookeeper实现分布式锁")
+    @Test
+    void testByZookeeper() throws Exception {
+        CuratorFramework client = CuratorFrameworkFactory.newClient("localhost:2181", new ExponentialBackoffRetry(1000, 3));
+        client.start();
+        InterProcessMutex lock = new InterProcessMutex(client, "/mylock");
+        long expireTime = 10L;
+        // 获取锁
+
+        boolean locked = lock.acquire(expireTime, TimeUnit.SECONDS);
+        if (locked) {
+            try {
+                // 执行互斥访问的代码 2181:
+                BusinessUtil.doSomeThing();
+            } catch (Exception e) {
+                // 处理异常
+            } finally {
+                try {
+                    lock.release(); // 释放锁
+                } catch (Exception e) {
+                    // 处理异常
+                }
+            }
+        }
+        client.close();
     }
 
 }
