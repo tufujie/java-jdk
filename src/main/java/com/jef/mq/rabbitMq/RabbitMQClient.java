@@ -38,6 +38,8 @@ public class RabbitMQClient {
         while (i <= 10) {
             HashMap<String, Object> map = new HashMap<String, Object>();
             map.put("tagId", i);
+            // 消息的过期时间(TTL)，单位毫秒
+            map.put("x-message-ttl", 6000);
             producer.sendMessage(map);
             i++;
         }

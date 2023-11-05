@@ -54,26 +54,28 @@ public class DistributedLockTest {
 
     /**
      * Redis分布式锁
-     * setex
      */
+    @DisplayName("setex实现分布式锁")
     @Test
     void testSetEx() {
         Jedis jedis = RedisJavaUtil.getAuthJedis();
         String key = BasicConstant.LOGIN_OBJECT_KEY;
         // 实现锁的超时释放
         int expireTime = 10;
-        if ("OK".equals(jedis.setex(key, expireTime, BasicConstant.USER_NAME))) {
-            System.out.println("当前事务获取锁");
-            try {
-                // 业务处理
-                BusinessUtil.doSomeThing();
-            } finally {
-                // 释放锁
-                jedis.del(key);
-            }
+        for (int i = 0; i < 20; i++) {
+            if ("OK".equals(jedis.setex(key, expireTime, BasicConstant.USER_NAME))) {
+                System.out.println("当前事务获取锁");
+                try {
+                    // 业务处理
+                    BusinessUtil.doSomeThing();
+                } finally {
+                    // 释放锁
+                    jedis.del(key);
+                }
 
-        } else {
-            System.out.println("被其它事务占用");
+            } else {
+                System.out.println("被其它事务占用");
+            }
         }
     }
 
@@ -81,6 +83,7 @@ public class DistributedLockTest {
      * Redis分布式锁
      * 实现库存-1
      */
+    @DisplayName("set nx px实现分布式锁")
     @Test
     void testSetNxV2() throws InterruptedException {
         Jedis jedis = RedisJavaUtil.getAuthJedis();
@@ -107,6 +110,7 @@ public class DistributedLockTest {
         }
     }
 
+    @DisplayName("Redisson实现分布式锁")
     @Test
     public void testReduceStockByRedisson() throws InterruptedException {
         RedissonClient redissonClient = RedisJavaUtil.getRedissonClient();
