@@ -2,8 +2,8 @@ package com.jef.io.blog.file.fileChange;
 
 import com.jef.io.blog.FileGlobal;
 
-import com.spire.pdf.FileFormat;
-import com.spire.pdf.PdfDocument;
+//import com.spire.pdf.FileFormat;
+//import com.spire.pdf.PdfDocument;
 import net.sourceforge.tess4j.TesseractException;
 import org.junit.Test;
 
@@ -20,7 +20,7 @@ import java.io.IOException;
  */
 public class PdfTransferTest {
 
-    @Test
+    /*@Test
     public void testPdfToWord() {
         // Create a PdfDocument instance
         PdfDocument pdf = new PdfDocument();
@@ -82,6 +82,6 @@ public class PdfTransferTest {
         }
         pdf.close();
 
-    }
+    }*/
 
 }

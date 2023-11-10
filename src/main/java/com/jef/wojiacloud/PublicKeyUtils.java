@@ -1,8 +1,8 @@
 package com.jef.wojiacloud;
 
+import com.alibaba.fastjson.JSONObject;
 import com.jef.util.security.Base64Util;
 
-import net.sf.json.JSONObject;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
@@ -57,7 +57,7 @@ public class PublicKeyUtils {
 	              "e": "nrb8ffrgsx9cy40wfywv6bpagkomkgfb";                        
     			}
     		 */
-			JSONObject data = JSONObject.fromObject(obj.get("data"));
+			JSONObject data = JSONObject.parseObject((String)obj.get("data"));
 			String modulus = data.get("m") != null ? data.getString("m") : null;
 			String exponent = data.get("e") != null ? data.getString("e") : null;
 
@@ -156,9 +156,9 @@ public class PublicKeyUtils {
 			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
 				String responseStr = EntityUtils.toString(response.getEntity(), CHARACTER_ENCODING);
 
-				String status = JSONObject.fromObject(responseStr).getString("result");
+				String status = JSONObject.parseObject(responseStr).getString("result");
 				if ("success".equals(status)) {
-					return JSONObject.fromObject(responseStr);
+					return JSONObject.parseObject(responseStr);
 				}
 
 			}

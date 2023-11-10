@@ -1,5 +1,6 @@
 package com.jef.landray.ws.client;
 
+import com.alibaba.fastjson.JSONObject;
 import com.jef.entity.FileVo;
 import com.jef.entity.WorkFlowVo;
 import com.jef.landray.flow.AttachmentForm;
@@ -11,7 +12,6 @@ import com.jef.util.LogicUtils;
 import com.jef.util.REIDIdentifier;
 import com.jef.util.StringUtils;
 
-import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -151,7 +151,7 @@ public class LandrayFlow {
         StringBuffer kmUrl = new StringBuffer().append(appUrl).append("/sys/webservice/kmReviewWebserviceService");
         IKmReviewWebserviceService kmSer = new IKmReviewWebserviceServiceProxy(kmUrl.toString());
         KmReviewParamterForm form = createForm(vo, map);
-        logger.info("setDocSubject addReview form={}", JSONObject.fromObject(form));
+        logger.info("setDocSubject addReview form={}", JSONObject.toJSONString(form));
         String responseID = kmSer.addReview(form);
         logger.info("LandrayFlow addReview responseID={}", responseID);
         return responseID;
@@ -251,7 +251,7 @@ public class LandrayFlow {
         flowParamJSONObject.put("operationType", "drafter_submit");
         flowParamJSONObject.put("auditNote", "继续审批");
         form.setFlowParam(flowParamJSONObject.toString());
-        logger.info("setDocSubject approveProcess form={}", JSONObject.fromObject(form));
+        logger.info("setDocSubject approveProcess form={}", JSONObject.toJSONString(form));
         String responseID = kmSer.approveProcess(form);
         logger.info("LandrayFlow approveProcess responseID={}", responseID);
         return responseID;

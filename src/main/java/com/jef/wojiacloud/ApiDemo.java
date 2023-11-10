@@ -1,6 +1,6 @@
 package com.jef.wojiacloud;
 
-import net.sf.json.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
@@ -238,7 +238,7 @@ public class ApiDemo {
 			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
 				String responseStr = EntityUtils.toString(response.getEntity(), CHARACTER_ENCODING);
 
-				return JSONObject.fromObject(responseStr);
+				return JSONObject.parseObject(responseStr);
 			}
 		} finally {
 			client.getConnectionManager().shutdown();
@@ -255,7 +255,7 @@ public class ApiDemo {
 			HttpResponse response = client.execute(post);
 			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
 				String responseStr = EntityUtils.toString(response.getEntity(), CHARACTER_ENCODING);
-				return JSONObject.fromObject(responseStr);
+				return JSONObject.parseObject(responseStr);
 
 			}
 		} finally {

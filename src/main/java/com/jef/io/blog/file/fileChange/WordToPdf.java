@@ -3,12 +3,12 @@ package com.jef.io.blog.file.fileChange;
 import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.Dispatch;
 import com.jef.io.blog.FileGlobal;
-import org.docx4j.Docx4J;
+/*import org.docx4j.Docx4J;
 import org.docx4j.fonts.IdentityPlusMapper;
 import org.docx4j.fonts.Mapper;
 import org.docx4j.fonts.PhysicalFonts;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
-import org.docx4j.org.apache.poi.util.IOUtils;
+import org.docx4j.org.apache.poi.util.IOUtils;*/
 import java.io.File;
 import java.io.FileOutputStream;
 
@@ -19,7 +19,7 @@ import java.io.FileOutputStream;
  */
 public class WordToPdf {
     public static void main(String[] args) throws Exception {
-        convertDocxToPdf(FileGlobal.DOCX_LOCAL, FileGlobal.PDF_LOCAL);
+//        convertDocxToPdf(FileGlobal.DOCX_LOCAL, FileGlobal.PDF_LOCAL);
 
     }
 
@@ -93,18 +93,18 @@ public class WordToPdf {
         }
     }
 
-    public static void test3(String wordFile, String pdfFile) throws Exception {
+    /*public static void test3(String wordFile, String pdfFile) throws Exception {
         WordprocessingMLPackage wordMLPackage = WordprocessingMLPackage.load(new File(wordFile));
         Docx4J.toPDF(wordMLPackage, new FileOutputStream(new File(pdfFile)));
 
     }
 
-    /**
+    *//**
      * docx文档转换为PDF
      *
      * @param pdfPath PDF文档存储路径
      * @throws Exception 可能为Docx4JException, FileNotFoundException, IOException等
-     */
+     *//*
     public static void convertDocxToPdf(String docxPath, String pdfPath) throws Exception {
 
         FileOutputStream fileOutputStream = null;
@@ -139,7 +139,7 @@ public class WordToPdf {
         fontMapper.put("华文中宋", PhysicalFonts.get("STZhongsong"));
 
         mlPackage.setFontMapper(fontMapper);
-    }
+    }*/
 
 
 }
