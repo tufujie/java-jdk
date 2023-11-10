@@ -1,7 +1,6 @@
 package com.jef.juc;
 
 import com.jef.algorithm.DelayQueueTask;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -22,6 +21,7 @@ public class DelayQueueTest {
         // 可以用来执行定时任务
         BlockingQueue<DelayQueueTask> task = new DelayQueue<>();
         long now = System.currentTimeMillis();
+        // 执行顺序为t5,t1,t3,t2,t6,t4
         DelayQueueTask t1 = new DelayQueueTask("t1", now + 1000);
         DelayQueueTask t2 = new DelayQueueTask("t2", now + 2000);
         DelayQueueTask t3 = new DelayQueueTask("t3", now + 1500);

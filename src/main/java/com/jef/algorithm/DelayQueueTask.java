@@ -18,7 +18,7 @@ public class DelayQueueTask implements Delayed {
     public DelayQueueTask(String name, long runningTime) {
         this.name = name;
         this.runningTime = runningTime;
-        scheduleTime = currentTime;
+        this.scheduleTime = currentTime;
     }
 
     @Override
@@ -30,7 +30,10 @@ public class DelayQueueTask implements Delayed {
 
     @Override
     public long getDelay(TimeUnit unit) {
-        return unit.convert(runningTime - System.currentTimeMillis(), TimeUnit.MILLISECONDS);
+        long residue = runningTime - System.currentTimeMillis();
+        // 500毫秒触发一次比较，直到<=0触发
+        System.out.println("task=" + name + "还剩" + residue + "ms触发");
+        return unit.convert(residue, TimeUnit.MILLISECONDS);
     }
 
     @Override
