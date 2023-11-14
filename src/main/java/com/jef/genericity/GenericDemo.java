@@ -10,10 +10,10 @@ public class GenericDemo {
 
     public static void main(String[] args) {
         Meat meat = new Meat();
-        meat = heat(meat);
+        heat(meat);
 
         Soup soup = new Soup();
-        soup = heat(soup);
+        heat(soup);
 
         Message<String> stringMessage = new Message<String>();
         stringMessage.setMsg("Hello");
@@ -63,6 +63,7 @@ public class GenericDemo {
 
     /**
      * 加热食物
+     * 泛型方法
      * @param food 食物
      * @param <T>
      * @return 加热后的食物

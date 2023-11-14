@@ -7,7 +7,6 @@ import com.jef.entity.User;
 import com.jef.util.BusinessUtil;
 import com.jef.util.PrintUtil;
 import com.jef.util.ReflectionUtil;
-
 import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
@@ -105,6 +104,10 @@ public class ReflectTest {
         // 方法参数是各种类型
         Method methodManyKindType = clazz.getDeclaredMethod("taskHasReturn", int.class, String.class);
         methodManyKindType.invoke(businessDemo, 10, "利用反射执行方法测试");
+        // 方法参数是对象
+        Method handlerObjectType = clazz.getDeclaredMethod("handlerObject", User.class);
+        User user = User.builder().name(BasicConstant.USER_NAME).build();
+        handlerObjectType.invoke(businessDemo, user);
     }
 
 

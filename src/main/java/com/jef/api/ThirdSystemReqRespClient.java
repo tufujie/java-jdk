@@ -17,7 +17,7 @@ public class ThirdSystemReqRespClient {
         System.out.println("开始接口1请求");
         ThirdSystemAApiOneReq thirdSystemAApiOneReq = ThirdSystemAApiOneReq.builder().requestId("test123").build();
         ThirdSystemAApiOneResp respOne = new ThirdSystemApiAImpl().invoke(thirdSystemAApiOneReq);
-        System.out.println(JSONObject.toJSONString(respOne));
+        System.out.println("客户端获取响应对象：" + JSONObject.toJSONString(respOne));
 
 
         PrintUtil.printSplitLine();
@@ -25,7 +25,7 @@ public class ThirdSystemReqRespClient {
         System.out.println("开始接口2请求");
         ThirdSystemAApiTwoReq thirdSystemAApiTwoReq = ThirdSystemAApiTwoReq.builder().requestId("test123").build();
         ThirdSystemAApiTwoResp respTwo = new ThirdSystemApiAImpl().invoke(thirdSystemAApiTwoReq);
-        System.out.println(JSONObject.toJSONString(respTwo));
+        System.out.println("客户端获取响应对象：" + JSONObject.toJSONString(respTwo));
     }
 
 }

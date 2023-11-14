@@ -3,12 +3,12 @@ package com.jef.cache;
 import com.jef.constant.BasicConstant;
 import com.jef.redis.RedisJavaUtil;
 import com.jef.util.PrintUtil;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Tuple;
+import redis.clients.jedis.params.SetParams;
 
 import java.util.Iterator;
 import java.util.List;
@@ -204,6 +204,14 @@ public class RedisJavaTest {
         // 数据更新后，获取数据时仍然从数据库取
         value = RedisJavaUtil.get(key);
         System.out.println(value);
+    }
+
+    @DisplayName("设置过期时间并取出")
+    @Test
+    void testSetTTLAndGet() {
+        Jedis jedis = RedisJavaUtil.getAuthJedis();
+        jedis.set(BasicConstant.USER_NAME_KEY, BasicConstant.USER_NAME, SetParams.setParams().ex(60));
+        jedis.get(BasicConstant.USER_NAME_KEY);
     }
 
 }

@@ -99,4 +99,8 @@ public class BusinessUtil {
     public static void updateTable() {
         System.out.println("业务单据更新");
     }
+
+    public static void handlerObject(User user) {
+        System.out.println("方法处理，输出用户名=" + user.getName());
+    }
 }

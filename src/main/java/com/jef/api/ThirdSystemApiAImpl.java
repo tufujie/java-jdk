@@ -94,7 +94,7 @@ public class ThirdSystemApiAImpl implements ThirdSystemApi {
             jsonObject.put("manageName", BasicConstant.USER_NAME);
             result.setData(jsonObject);
         }
-        System.out.println("响应" + JSONObject.toJSONString(result));
+        System.out.println("接口响应：" + JSONObject.toJSONString(result));
         return result;
     }
 

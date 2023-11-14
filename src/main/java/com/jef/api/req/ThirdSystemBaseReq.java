@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.http.HttpMethod;
 
 /**
+ * 泛型接口
  * @param <Resp> 响应类型
  */
 public interface ThirdSystemBaseReq<Resp> {

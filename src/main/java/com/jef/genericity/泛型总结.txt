@@ -1,0 +1,70 @@
+泛型类和泛型接口
+如果定义的一个类或接口有一个或多个类型变量，则可以使用泛型。泛型类型变量由尖括号界定，放在类或接口名的后面，下面定义尖括号中的T称为类型变量。意味着一个变量将被一个类型替代替代类型变量的值将被当作参数或返回类型。对于List接口来说，当一个实例被创建以后，T将被当作一个函数的参数下面分别是泛型类、泛型接口的定义：
+// 泛型类
+public class Gen<T>{
+
+……
+
+}
+
+// 泛型接口
+public interface List<T> extends Collection<T>{
+……
+}
+
+泛型方法：
+是否拥有泛型方法，与其所在的类是否泛型无关。
+要定义泛型方法，只需将泛型参数列表置于返回值前。
+如：
+public class ExampleA {
+    public<> void f(T x) {
+        System.out.println(x.getClass().getName());
+    }
+
+    publiec static void main(String[] args) {
+    	ExampleA ea= new ExampleA();
+        ea.f("");
+        ea.f(10);
+        ea.f(a);
+        ea.f(ea);
+    }
+}
+使用泛型方法时，不必指明参数类型，编译器会自己找出具体的类型。泛型方法除了定义不同，调用就像普通方法一样。
+需要注意，一个static方法，无法访问泛型类的类型参数，所以，若要static方法需要使用泛型能力，必须使其成为泛型方法。
+
+
+<? extends E>是Upper Bound(上限)的通配符，用来限制元素类型的上限，如:
+List<? extends Fruit> fruits;
+表示集合中的元素的上限是Fruit类型，即只能是Fruit或者Fruit的子类，如:
+fruits = new ArrayList<Fruits>();
+fruits = new ArrayList<Apple>();
+都是合理的，但是如果是Fruit的父类就会报错，如:
+fruits = new  ArrayList<Object>();
+编译会报错。
+1.写入
+fruits.add(new Apple());报错
+因为集合fruits中装的元素类型为Fruit或Fruit子类，直觉告诉我们，往fruits中添加一个Fruit类型对象或其子类对象是可行的，结果是编译都不通过，为什么?
+因为<? extends Fruit>只是告诉编译器集合中元素的类型上限，但它具体是什么类型编译器是不知道的，fruits可以指向ArrayList<Fruit>，
+也可以指向ArrayList<Apple>、ArrayList<Banana>，也就是说它的类型是不确定的，既然是不确定的，为了类型安全，编译器只能阻止添加元素了。
+举个例子，当你添加一个Apple时，但fruits此时指向ArrayList<Banana>，显然类型就不兼容了。当然null除外，因为它可以表示任何类型
+2.读取
+Fruit fruit = fruits.get(0);
+无论fruits指向什么，编译器都可以确定获取的元素是Fruit类型，所有读取集合中的元素是允许的
+
+<? super E>是 Lower Bound(下限) 的通配符 ，用来限制元素的类型下限，比如
+List<? super Apple> apples;
+表示集合中元素类型下限为Apple类型，即只能是Apple或Apple的父类，因此对于下面的赋值是合理的
+apples = new ArrayList<Apple>();
+如果元素是apple的子类，则编译不通过
+apple = new ArrayList<RedApple>();报错
+1.写入
+因为apples中装的元素是Apple或Apple的某个父类，我们无法确定是哪个具体类型，但是可以确定的是Apple和Apple的子类是和这个“不确定的类”兼容的，
+因为它肯定是这个“不确定类型”的子类，也就是说我们可以往集合中添加Apple或者Apple子类的对象，所以对于下面的添加是允许的
+apples.add(new Apple());
+apples.add(new RedApple());
+它无法添加Fruit的任何父类对象，举个例子，当你往apples中添加一个Fruit类型对象时，但此时apples指向ArrayList<Apple>，显然类型就不兼容了，Fruit不是Apple的子类
+apples.add(new Fruit());
+2.读取
+编译器允许从apples中获取元素的，但是无法确定的获取的元素具体是什么类型，只能确定一定是Object类型的子类，因此我们想获得存储进去的对应类型的元素就只能进行
+强制类型转换了
+Apple apple = (Apple)apples.get(0);
