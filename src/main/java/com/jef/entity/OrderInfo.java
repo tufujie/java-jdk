@@ -1,5 +1,7 @@
 package com.jef.entity;
 
+import com.jef.util.DateTimeUtil;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -166,5 +168,10 @@ public class OrderInfo implements Serializable {
 
     public void setCreatorName(String creatorName) {
         this.creatorName = creatorName;
+    }
+
+    @Override
+    public String toString() {
+        return "id=" + id + ",createOrderTime=" + DateTimeUtil.formatDate(createOrderTime, DateTimeUtil.DEFAULT_DATE_FORMAT);
     }
 }
