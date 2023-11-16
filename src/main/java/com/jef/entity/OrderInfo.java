@@ -57,6 +57,8 @@ public class OrderInfo implements Serializable {
     private Long creatorID;
     // 创建人名称
     private String creatorName;
+    // 总件数
+    private Integer num;
 
     public Long getId() {
         return id;
@@ -170,8 +172,17 @@ public class OrderInfo implements Serializable {
         this.creatorName = creatorName;
     }
 
+    public Integer getNum() {
+        return num;
+    }
+
+    public void setNum(Integer num) {
+        this.num = num;
+    }
+
     @Override
     public String toString() {
-        return "id=" + id + ",createOrderTime=" + DateTimeUtil.formatDate(createOrderTime, DateTimeUtil.DEFAULT_DATE_FORMAT);
+        return "id=" + id + ",createOrderTime=" + DateTimeUtil.formatDate(createOrderTime, DateTimeUtil.DEFAULT_DATE_FORMAT)
+                + ",num=" + num + ",discountType=" + discountType;
     }
 }

@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
@@ -40,6 +39,20 @@ public class ListSortTest {
     }
 
     @Test
+    void testListSort() {
+        List<OrderInfo> orderInfoList = BasicList.getOrderInfoList();
+        System.out.println("未排序前");
+        System.out.println(orderInfoList);
+        PrintUtil.printSplitLine();
+        // 多重排序，先按照数量，然后按照折扣方式
+        orderInfoList.sort((o1, o2) -> o1.getNum() > o2.getNum() ? 1 : o1.getNum() < o2.getNum() ? -1 :
+                o1.getDiscountType() > o2.getDiscountType() ? 1 : o1.getDiscountType() < o2.getDiscountType() ? -1
+                        : 0);
+        System.out.println("排序后");
+        System.out.println(orderInfoList);
+    }
+
+    @Test
     void testSort() {
         List<Integer> list = new ArrayList<>(Arrays.asList(BasicConstant.INTEGER_ARRAY));
         Collections.sort(list, ArraySortUtil.getDownSortComparator());
@@ -65,19 +78,20 @@ public class ListSortTest {
         System.out.println("未排序前");
         System.out.println(orderInfoList);
         PrintUtil.printSplitLine();
-        Collections.sort(orderInfoList, new Comparator<OrderInfo>() {
+        /*Collections.sort(orderInfoList, new Comparator<OrderInfo>() {
             @Override
             public int compare(OrderInfo o1, OrderInfo o2) {
                 // 正序
-                if (o1.getId() > o2.getId()) {
+                if (o1.getNum() > o2.getNum()) {
                     return 1;
-                } else if (o1.getId() < o2.getId()) {
+                } else if (o1.getNum() < o2.getNum()) {
                     return -1;
                 } else {
                     return 0;
                 }
             }
-        });
+        });*/
+        Collections.sort(orderInfoList, (o1, o2) -> o1.getNum() > o2.getNum() ? 1 : o1.getNum() < o2.getNum() ? -1 : 0);
         System.out.println("排序后");
         System.out.println(orderInfoList);
     }
@@ -87,7 +101,7 @@ public class ListSortTest {
         List<OrderInfo> orderInfoList = BasicList.getOrderInfoList();
         System.out.println("未排序前");
         System.out.println(orderInfoList);
-        new ListSortUtil().sort(orderInfoList, "id", null);
+        new ListSortUtil().sort(orderInfoList, "num", null);
         System.out.println("根据id排序后");
         System.out.println(orderInfoList);
         orderInfoList = BasicList.getOrderInfoList();

@@ -77,19 +77,28 @@ public class BasicList {
         orderInfo1.setTotalPrice(null);
         orderInfo1.setCreatorID(1L);
         orderInfo1.setCreateOrderTime(DateTimeUtil.parseDate("2023-11-01 00:00:03"));
+        orderInfo1.setNum(3);
+        orderInfo1.setDiscountType(4);
+
         OrderInfo orderInfo2 = new OrderInfo();
         orderInfo2.setId(2L);
         orderInfo2.setTotalPrice(new BigDecimal(4));
         orderInfo2.setCreatorID(1L);
         orderInfo2.setCreateOrderTime(DateTimeUtil.parseDate("2023-11-01 00:00:01"));
+        orderInfo2.setNum(5);
+        orderInfo2.setDiscountType(5);
+
         OrderInfo orderInfo3 = new OrderInfo();
         orderInfo3.setId(3L);
         orderInfo3.setTotalPrice(new BigDecimal(6));
         orderInfo3.setCreatorID(2L);
         orderInfo3.setCreateOrderTime(DateTimeUtil.parseDate("2023-11-01 00:00:02"));
+        orderInfo3.setNum(3);
+        orderInfo3.setDiscountType(3);
+
         orderInfoList.add(orderInfo1);
-        orderInfoList.add(orderInfo3);
         orderInfoList.add(orderInfo2);
+        orderInfoList.add(orderInfo3);
         return orderInfoList;
     }
 
