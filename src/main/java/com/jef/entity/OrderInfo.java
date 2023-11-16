@@ -59,6 +59,8 @@ public class OrderInfo implements Serializable {
     private String creatorName;
     // 总件数
     private Integer num;
+    // 支付时间，为了功能测试设置为String
+    private String payTime;
 
     public Long getId() {
         return id;
@@ -180,9 +182,17 @@ public class OrderInfo implements Serializable {
         this.num = num;
     }
 
+    public String getPayTime() {
+        return payTime;
+    }
+
+    public void setPayTime(String payTime) {
+        this.payTime = payTime;
+    }
+
     @Override
     public String toString() {
         return "id=" + id + ",createOrderTime=" + DateTimeUtil.formatDate(createOrderTime, DateTimeUtil.DEFAULT_DATE_FORMAT)
-                + ",num=" + num + ",discountType=" + discountType;
+                + ",num=" + num + ",discountType=" + discountType + ",payTime=" + payTime;
     }
 }

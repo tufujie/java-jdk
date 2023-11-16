@@ -59,11 +59,12 @@ public class RedisJavaTest {
     @Test
     public void testSetAndGetList() {
         // 存储数据到列表中
-        jedis.lpush("site-list", "Runoob");
-        jedis.lpush("site-list", "Google");
-        jedis.lpush("site-list", "Taobao");
+        String key = "site-list";
+        jedis.lpush(key, "Runoob");
+        jedis.lpush(key, "Google");
+        jedis.lpush(key, "Taobao");
         // 获取存储的数据并输出
-        List<String> list = jedis.lrange("site-list", 0, 2);
+        List<String> list = jedis.lrange(key, 0, -1);
         for (String s : list) {
             System.out.println("列表项为: " + s);
         }
@@ -71,18 +72,23 @@ public class RedisJavaTest {
 
     /**
      * 实现消息队列
+     * 先进先出
      */
     @Test
     public void testMessageQueue() {
         String key = "site-list";
         // 存储数据到列表中
-        jedis.rpush(key, "Runoob");
-        jedis.rpush(key, "Google");
-        jedis.rpush(key, "Taobao");
+        // 保持队列有最新的10个
+        for (int i = 1; i <= 20; i++) {
+            List<String> list = jedis.lrange(key, 0, -1);
+            if (list.size() >= 10) {
+                jedis.lpop(key);
+            }
+            jedis.rpush(key, String.valueOf(i));
+        }
+        List<String> list = jedis.lrange(key, 0, -1);
+        System.out.println(list);
 
-        System.out.println(jedis.lpop(key));
-        System.out.println(jedis.lpop(key));
-        System.out.println(jedis.lpop(key));
     }
 
     /**

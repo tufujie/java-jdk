@@ -13,8 +13,10 @@ public class QueueTest {
         queue.add("3");
         // 获取对头：1
         System.out.println("peek()=" + queue.peek());
+        System.out.println(queue);
         // 获取对头：1，并移除
         System.out.println("poll()=" + queue.poll());
+        System.out.println(queue);
         // 重新获取对头：2
         System.out.println("peek()=" + queue.peek());
         // 队尾添加元素

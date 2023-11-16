@@ -8,11 +8,7 @@ import com.jef.util.ListSortUtil;
 import com.jef.util.PrintUtil;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 数字排序
@@ -107,6 +103,19 @@ public class ListSortTest {
         orderInfoList = BasicList.getOrderInfoList();
         new ListSortUtil().sort(orderInfoList, "createOrderTime", null);
         System.out.println("根据createOrderTime排序后");
+        System.out.println(orderInfoList);
+    }
+
+    @Test
+    void testListSortUtil2() {
+        List<OrderInfo> orderInfoList = BasicList.getOrderInfoList();
+
+        System.out.println("未排序前");
+        System.out.println(orderInfoList);
+        // 字符串时间排序
+//        Collections.sort(orderInfoList, (o1, o2) -> o2.getExtraOrderId().compareTo(o1.getExtraOrderId()));
+        Collections.sort(orderInfoList, Comparator.comparing(OrderInfo::getPayTime));
+        System.out.println("排序后");
         System.out.println(orderInfoList);
     }
 
