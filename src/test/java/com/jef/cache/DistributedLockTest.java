@@ -3,7 +3,6 @@ package com.jef.cache;
 import com.jef.constant.BasicConstant;
 import com.jef.redis.RedisJavaUtil;
 import com.jef.util.BusinessUtil;
-
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.recipes.locks.InterProcessMutex;
@@ -28,6 +27,7 @@ public class DistributedLockTest {
     /**
      * Redis分布式锁
      * setnx + 过期时间
+     * 设置缓存和设置过期时间不是原子性操作
      */
     @Test
     void testSetNx() {
@@ -124,6 +124,8 @@ public class DistributedLockTest {
         for (int i = 0; i < 20; i++) {
             // 尝试获取锁
             boolean locked = lock.tryLock(expireTime, TimeUnit.SECONDS);
+            // 或者
+//            lock.lock(expireTime, TimeUnit.SECONDS);
             if (locked) {
                 try {
                     String stock = jedis.get(STOCKKEY);
@@ -146,7 +148,7 @@ public class DistributedLockTest {
         }
     }
 
-    @DisplayName("Zookeeper实现分布式锁")
+    @DisplayName("Zookeeper curator实现分布式锁")
     @Test
     void testByZookeeper() throws Exception {
         CuratorFramework client = CuratorFrameworkFactory.newClient("localhost:2181", new ExponentialBackoffRetry(1000, 3));
