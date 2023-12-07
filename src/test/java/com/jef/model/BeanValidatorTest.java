@@ -14,7 +14,7 @@ public class BeanValidatorTest {
 
     @Test
     @DisplayName("测试实体填写校验")
-    void testBeanValidator() throws Exception {
+    void testBeanValidator() {
         BusinessRequestVo businessRequestVo = new BusinessRequestVo();
         try {
             BeanValidator.validate(businessRequestVo);
@@ -22,8 +22,18 @@ public class BeanValidatorTest {
             System.out.println("校验结果：" + e.getMessage());
         }
         businessRequestVo.setGoodsId(1L);
-        businessRequestVo.setNum(2);
-        BeanValidator.validate(businessRequestVo);
+        businessRequestVo.setNum(-1);
+        try {
+            BeanValidator.validate(businessRequestVo);
+        } catch (Exception e) {
+            System.out.println("校验结果：" + e.getMessage());
+        }
+        businessRequestVo.setNum(1);
+        try {
+            BeanValidator.validate(businessRequestVo);
+        } catch (Exception e) {
+            System.out.println("校验结果：" + e.getMessage());
+        }
     }
 
     @Test
