@@ -40,10 +40,9 @@ public class ListSortTest {
         System.out.println("未排序前");
         System.out.println(orderInfoList);
         PrintUtil.printSplitLine();
-        // 多重排序，先按照数量，然后按照折扣方式
-        orderInfoList.sort((o1, o2) -> o1.getNum() > o2.getNum() ? 1 : o1.getNum() < o2.getNum() ? -1 :
-                o1.getDiscountType() > o2.getDiscountType() ? 1 : o1.getDiscountType() < o2.getDiscountType() ? -1
-                        : 0);
+        // 多重排序，先按照数量，然后按照折扣方式，递减
+        orderInfoList.sort((o1, o2) -> o1.getNum() > o2.getNum() ? -1 : o1.getNum() < o2.getNum() ? 1 :
+                Integer.compare(o2.getDiscountType(), o1.getDiscountType()));
         System.out.println("排序后");
         System.out.println(orderInfoList);
     }
