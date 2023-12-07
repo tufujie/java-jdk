@@ -36,4 +36,13 @@ public class BeanValidator {
             throw new Exception(simlpeTipMessages.toString());
         }
     }
+
+    public static <T> String getValidate(T source) {
+        try {
+            validate(source);
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+        return null;
+    }
 }

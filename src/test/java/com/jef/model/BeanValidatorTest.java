@@ -1,5 +1,6 @@
 package com.jef.model;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -19,20 +20,21 @@ public class BeanValidatorTest {
         try {
             BeanValidator.validate(businessRequestVo);
         } catch (Exception e) {
-            System.out.println("校验结果：" + e.getMessage());
+            System.out.println("校验结果1：" + e.getMessage());
         }
         businessRequestVo.setGoodsId(1L);
         businessRequestVo.setNum(-1);
         try {
             BeanValidator.validate(businessRequestVo);
         } catch (Exception e) {
-            System.out.println("校验结果：" + e.getMessage());
+            System.out.println("校验结果2：" + e.getMessage());
         }
         businessRequestVo.setNum(1);
+        businessRequestVo.setType(DictEnum.ONE_TYPE.getType());
         try {
             BeanValidator.validate(businessRequestVo);
         } catch (Exception e) {
-            System.out.println("校验结果：" + e.getMessage());
+            System.out.println("校验结果3：" + e.getMessage());
         }
     }
 
@@ -55,6 +57,16 @@ public class BeanValidatorTest {
             } catch (Exception e) {
                 System.out.println("依赖对象校验结果：" + e.getMessage());
             }
+        }
+    }
+
+    @Test
+    @DisplayName("测试实体填写校验信息")
+    void testGetBeanValidatorMessage() {
+        BusinessRequestVo businessRequestVo = new BusinessRequestVo();
+        String checkMessage = BeanValidator.getValidate(businessRequestVo);
+        if (StringUtils.isNotEmpty(checkMessage)) {
+            System.out.println("校验信息=" + checkMessage);
         }
     }
 

@@ -26,4 +26,7 @@ public class BusinessRequestVo {
     @NotNull(message = "商品数量不能为空")
     private Integer num;
 
+    @Dict(type = "activityType")
+    private String type;
+
 }
