@@ -10,14 +10,17 @@ import java.util.concurrent.CyclicBarrier;
 public class CyclicBarrierDemo extends Thread {
 
     public static void main(String[] args) throws BrokenBarrierException, InterruptedException {
-        int n = 4;
-        CyclicBarrier cyclicBarrier = new CyclicBarrier(n);
-        for (int i = 0; i < n; i++) {
-            new CyclicBarrierDemo(cyclicBarrier).start();
+        int taskNum = 4;
+        int parties = taskNum + 1;
+        CyclicBarrier cyclicBarrierNew = new CyclicBarrier(parties);
+        for (int i = 0; i < taskNum; i++) {
+            new CyclicBarrierDemo(cyclicBarrierNew).start();
         }
+        cyclicBarrier.await();
+        System.out.println("所有线程执行完毕，进行汇总、分析等任务");
     }
 
-    private CyclicBarrier cyclicBarrier;
+    private static CyclicBarrier cyclicBarrier;
 
     public CyclicBarrierDemo(CyclicBarrier cyclicBarrier) {
         this.cyclicBarrier = cyclicBarrier;
@@ -26,13 +29,12 @@ public class CyclicBarrierDemo extends Thread {
     @Override
     public void run() {
         try {
-            Thread.sleep(1000); //以睡眠来模拟线程需要预定读入数据操作
-            System.out.println("线程" + Thread.currentThread().getName() + "读入数据完毕，等待其他线程读入完毕");
+            System.out.println("线程" + Thread.currentThread().getName() + "处理业务完毕，等待其他线程处理完毕");
             cyclicBarrier.await();
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         } catch (BrokenBarrierException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 }

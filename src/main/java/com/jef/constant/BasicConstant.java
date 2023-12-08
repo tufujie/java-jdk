@@ -251,4 +251,9 @@ public class BasicConstant {
     public static final String ES_SERVER_IPS = "127.0.0.1:9300";
     // ES集群名称
     public static final String ES_CLUSTER_NAME = "jef-elasticsearch";
+
+    /**
+     * 订单扣库存key
+     */
+    public static final String ORDER_STOCK_KEY = "order:stock";
 }
