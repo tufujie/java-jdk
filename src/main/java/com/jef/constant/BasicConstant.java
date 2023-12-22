@@ -256,4 +256,6 @@ public class BasicConstant {
      * 订单扣库存key
      */
     public static final String ORDER_STOCK_KEY = "order:stock";
+
+    public static final String HYPER_LOG_LOG_KEY = "HyperLogLogKey";
 }

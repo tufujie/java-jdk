@@ -1,13 +1,12 @@
 package com.jef.jdk8;
 
+import com.google.common.collect.Maps;
 import com.jef.constant.BasicConstant;
 import com.jef.constant.BasicEntity;
 import com.jef.constant.BasicList;
 import com.jef.entity.User;
 import com.jef.util.BusinessUtil;
 import com.jef.util.StringUtils;
-
-import com.google.common.collect.Maps;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -46,6 +45,13 @@ public class FunctionTest {
         HashMap<String, User> namePhoneMap = Maps.newHashMap();
         userList.forEach(t -> namePhoneMap.put(functionToMap.apply(t), t));
         System.out.println("namePhoneMap Size=" + namePhoneMap.size());
+        // 自定义业务
+        Function<User, String> functionCustom = t -> {
+            BusinessUtil.doSomeThing();
+            return t.getName() + t.getPhone();
+        };
+        result = functionCustom.apply(user);
+        System.out.println("自定义业务执行后返回结果：" + result);
     }
 
     @Test

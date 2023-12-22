@@ -108,7 +108,7 @@ public class RedisJavaTest {
      * Redis Java Hash(哈希) 实例
      */
     @Test
-    public void testGetSetAndGeHash() {
+    public void testGetSetAndGetHash() {
         jedis.hset(BasicConstant.LOGIN_OBJECT_KEY, BasicConstant.USER_NAME_KEY, BasicConstant.USER_NAME);
         String userName = jedis.hget(BasicConstant.LOGIN_OBJECT_KEY, BasicConstant.USER_NAME_KEY);
         Assertions.assertEquals(BasicConstant.USER_NAME, userName);
@@ -118,7 +118,7 @@ public class RedisJavaTest {
      * Redis Java SortedSet(有序集合) 实例
      */
     @Test
-    public void testGetSetAndGeZSet() {
+    public void testGetSetAndGetZSet() {
         String key = BasicConstant.PROGRAMMING_LANGUAGE_RANK;
         jedis.zadd(key, 10, "Java");
         jedis.zadd(key, 8, "GO");
@@ -128,7 +128,7 @@ public class RedisJavaTest {
         System.out.println("rankSetSize=" + rankSetSize);
         PrintUtil.printSplitLine();
 
-        Set<Tuple> rankRevSet = jedis.zrevrangeWithScores(key, 0L, 2L);
+        Set<Tuple> rankRevSet = jedis.zrevrangeWithScores(key, 0, -1);
         System.out.println("正排行=" + rankRevSet);
         Set<String> rankRevSetV2 = jedis.zrevrange(key, 0L, 2L);
         System.out.println("正排行V2=" + rankRevSetV2);
@@ -244,5 +244,22 @@ public class RedisJavaTest {
         jedis.bgsave();
     }
 
+
+    @DisplayName("HyperLogLog")
+    @Test
+    void testHyperLogLog() {
+        int index = 0;
+        // N次请求，100次请求
+        for (int i = 0; i < 100; i++) {
+            // 过期时间不能在这里设置
+            jedis.pfadd("uv", "user_" + i);
+            jedis.pfadd("uv", "user_" + i);
+        }
+        // 读取uv 理论值是: 100
+        Long uv = jedis.pfcount("uv");
+        System.out.println("uv: " + uv);
+        // 重复执行时，需要删除原先的
+        // jedis.del("uv");
+    }
 
 }

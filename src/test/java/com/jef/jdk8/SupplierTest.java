@@ -1,8 +1,8 @@
 package com.jef.jdk8;
 
 import com.jef.constant.BasicConstant;
+import com.jef.util.BusinessUtil;
 import com.jef.util.PrintUtil;
-
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -24,22 +24,24 @@ public class SupplierTest {
          * 如果需要返回值则需要 return 语句。
          */
         Supplier<String> e1 = () -> {
-            System.out.println("output1");
-            System.out.println("output2");
+            BusinessUtil.doSomeThing();
             return BasicConstant.USER_NAME;
         };
+        System.out.println(e1.get());
 
         /**
-         * 只有一行代码，且有返回值。无需分号，无需 return 语句。
+         * 只有一行代码，且无返回值。无需分号，无需 return 语句。
          */
         Runnable e2 = () -> {
             System.out.println("notReturn()");
         };
+        e2.run();
 
         /**
-         * 只有一行代码。无需分号。
+         * 只有一行代码，且有返回值。无需分号，无需 return 语句。
          */
         Supplier<String> e3 = () -> "只有一行且有返回值";
+        System.out.println(e3.get());
 
     }
 

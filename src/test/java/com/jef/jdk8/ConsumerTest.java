@@ -6,7 +6,6 @@ import com.jef.util.BusinessUtil;
 import com.jef.util.NumberUtils;
 import com.jef.util.PrintUtil;
 import com.jef.util.StringUtils;
-
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -56,10 +55,16 @@ public class ConsumerTest {
         consumerMap.put(2, consumerSub);
         orderInfo.setTotalPrice(new BigDecimal(200));
         orderInfo.setDiscountType(1);
-        consumerMap.get(orderInfo.getDiscountType()).accept(orderInfo);
+//        consumerMap.get(orderInfo.getDiscountType()).accept(orderInfo);
+        setPrice(orderInfo, consumerMap.get(orderInfo.getDiscountType()));
         orderInfo.setDiscountType(2);
-        consumerMap.get(orderInfo.getDiscountType()).accept(orderInfo);
+//        consumerMap.get(orderInfo.getDiscountType()).accept(orderInfo);
+        setPrice(orderInfo, consumerMap.get(orderInfo.getDiscountType()));
         System.out.println("折扣优惠后的价格为=" + orderInfo.getTotalPrice());
+    }
+
+    private void setPrice(OrderInfo orderInfo, Consumer<OrderInfo> consumer) {
+        consumer.accept(orderInfo);
     }
 
     @Test
