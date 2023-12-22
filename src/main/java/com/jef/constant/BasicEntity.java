@@ -1,10 +1,7 @@
 package com.jef.constant;
 
-import com.google.common.collect.Lists;
+import com.jef.entity.OrderInfo;
 import com.jef.entity.User;
-
-import java.math.BigDecimal;
-import java.util.List;
 
 /**
  * @author Jef
@@ -29,5 +26,12 @@ public class BasicEntity {
         user.setAge(2);
         user.setType(2);
         return user;
+    }
+
+    public static OrderInfo getOrderInfo() {
+        OrderInfo orderInfo = new OrderInfo();
+        orderInfo.setOrderId("test");
+        orderInfo.setNum(2);
+        return orderInfo;
     }
 }

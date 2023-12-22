@@ -4,6 +4,7 @@ import com.google.common.collect.Maps;
 import com.jef.constant.BasicConstant;
 import com.jef.constant.BasicEntity;
 import com.jef.constant.BasicList;
+import com.jef.entity.OrderInfo;
 import com.jef.entity.User;
 import com.jef.util.BusinessUtil;
 import com.jef.util.StringUtils;
@@ -46,12 +47,25 @@ public class FunctionTest {
         userList.forEach(t -> namePhoneMap.put(functionToMap.apply(t), t));
         System.out.println("namePhoneMap Size=" + namePhoneMap.size());
         // 自定义业务
-        Function<User, String> functionCustom = t -> {
+        Function<OrderInfo, String> functionCustom = t -> {
             BusinessUtil.doSomeThing();
-            return t.getName() + t.getPhone();
+            return t.getOrderId() + t.getNum();
         };
-        result = functionCustom.apply(user);
+        OrderInfo orderInfo = BasicEntity.getOrderInfo();
+        System.out.println(doSomething(orderInfo, functionCustom));
+    }
+
+    /**
+     * 订单处理
+     *
+     * @param orderInfo           订单信息
+     * @param orderStringFunction 订单处理
+     * @return 订单处理返回结果
+     */
+    private String doSomething(OrderInfo orderInfo, Function<OrderInfo, String> orderStringFunction) {
+        String result = orderStringFunction.apply(orderInfo);
         System.out.println("自定义业务执行后返回结果：" + result);
+        return result;
     }
 
     @Test

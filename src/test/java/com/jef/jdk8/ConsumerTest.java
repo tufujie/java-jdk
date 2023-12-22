@@ -47,7 +47,9 @@ public class ConsumerTest {
         };
         OrderInfo orderInfo = new OrderInfo();
         orderInfo.setTotalPrice(new BigDecimal(100));
-        consumerDiscount.andThen(consumerSub).accept(orderInfo);
+        setPrice(orderInfo, consumerDiscount);
+        setPrice(orderInfo, consumerSub);
+//        consumerDiscount.andThen(consumerSub).accept(orderInfo);
         System.out.println("折扣优惠后的价格为=" + orderInfo.getTotalPrice());
         // 使用字典方式
         Map<Integer, Consumer> consumerMap = new HashMap<>();
@@ -63,6 +65,12 @@ public class ConsumerTest {
         System.out.println("折扣优惠后的价格为=" + orderInfo.getTotalPrice());
     }
 
+    /**
+     * 设置价格
+     *
+     * @param orderInfo 订单信息
+     * @param consumer  消费方式
+     */
     private void setPrice(OrderInfo orderInfo, Consumer<OrderInfo> consumer) {
         consumer.accept(orderInfo);
     }
