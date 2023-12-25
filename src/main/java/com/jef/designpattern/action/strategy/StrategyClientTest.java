@@ -1,5 +1,6 @@
 package com.jef.designpattern.action.strategy;
 
+import com.jef.designpattern.action.strategy.re.CustomerTypeServiceFactory;
 import org.junit.Test;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
  * @author Jef
  * @date 2019/2/13
  */
-public class ClientAfterTest {
+public class StrategyClientTest {
 
     @Test
     public void testGetPrice() {
@@ -39,6 +40,38 @@ public class ClientAfterTest {
             CustomerContext ctx = new CustomerContext(ICustomerStrategy);
             // 3：:计算报价
             double price = ctx.handlePrice(customer);
+            System.out.println("原价" + customer.getGoodsPrice() + ",向客户报价：" + price);
+        }
+    }
+
+    @Test
+    public void testGetPriceV3() {
+        List<Customer> customerList = CustomerBuilder.generatePriceList();
+        for (Customer customer : customerList) {
+            // 1：选择并创建需要使用的策略对象
+            ICustomerStrategy customerStrategy = CustomerTypeEnum.getByCustomerType(customer.getType());
+            // 2：创建上下文
+            CustomerContext ctx = new CustomerContext(customerStrategy);
+            // 3：:计算报价
+            double price = ctx.handlePrice(customer);
+            System.out.println("原价" + customer.getGoodsPrice() + ",向客户报价：" + price);
+        }
+    }
+
+    @Test
+    public void testGetPriceV4() {
+        List<Customer> customerList = CustomerBuilder.generatePriceList();
+        for (Customer customer : customerList) {
+            double price = CustomerPriceServiceFactory.getInstance().handlePrice(customer.getType(), customer);
+            System.out.println("原价" + customer.getGoodsPrice() + ",向客户报价：" + price);
+        }
+    }
+
+    @Test
+    public void testGetPriceV5() {
+        List<Customer> customerList = CustomerBuilder.generatePriceList();
+        for (Customer customer : customerList) {
+            double price = CustomerTypeServiceFactory.getInstance().handlePrice(customer.getType(), customer);
             System.out.println("原价" + customer.getGoodsPrice() + ",向客户报价：" + price);
         }
     }

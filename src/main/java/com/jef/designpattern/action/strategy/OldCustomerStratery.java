@@ -6,11 +6,19 @@ package com.jef.designpattern.action.strategy;
  * @date 2019/2/13
  */
 public class OldCustomerStratery implements ICustomerStrategy {
+    static {
+        beanMap.put("old", new OldCustomerStratery());
+    }
 
     @Override
     public double calcPrice(Customer customer) {
         System.out.println("对于老客户，统一折扣5%");
         return customer.getGoodsPrice() * (1 - 0.05);
 //        return goodsPrice * 0.95;
+    }
+
+    @Override
+    public String getCustomerType() {
+        return "old";
     }
 }

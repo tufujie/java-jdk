@@ -7,9 +7,18 @@ package com.jef.designpattern.action.strategy;
  */
 public class NormalCustomerStratery implements ICustomerStrategy {
 
+    static {
+        beanMap.put("normal", new NormalCustomerStratery());
+    }
+
     @Override
     public double calcPrice(Customer customer) {
         System.out.println("对于新客户或者是普通客户，没有折扣");
         return customer.getGoodsPrice();
+    }
+
+    @Override
+    public String getCustomerType() {
+        return "normal";
     }
 }
