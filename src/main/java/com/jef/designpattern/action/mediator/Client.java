@@ -14,11 +14,12 @@ public class Client {
         Cpu cpu = new Cpu(mediator);
         Video video = new Video(mediator);
         Sound sound = new Sound(mediator);
+
         mediator.setCdDriver(cdDriver);
         mediator.setCpu(cpu);
         mediator.setVideo(video);
         mediator.setSound(sound);
         // 开始读取数据
-        cdDriver.readCd();
+        cdDriver.readCd("儿童视频,儿童音频");
     }
 }

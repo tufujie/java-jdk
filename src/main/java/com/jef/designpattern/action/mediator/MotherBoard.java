@@ -37,11 +37,11 @@ public class MotherBoard implements Mediator {
     }
 
     /**
-     * 打开CD读取数据
+     * 打开CD读取数据后处理数据
      */
     private void openCdDriverReadData() {
         // 先获取光驱读取的数据
-        String videoAndSounnd = this.cdDriver.getVideaAndSound();
+        String videoAndSounnd = this.cdDriver.getVideoAndSound();
         // 把这些数据传递给CPU进行处理
         this.cpu.executeData(videoAndSounnd);
     }

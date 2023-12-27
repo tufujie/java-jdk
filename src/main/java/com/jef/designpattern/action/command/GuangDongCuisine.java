@@ -1,7 +1,7 @@
 package com.jef.designpattern.action.command;
 
 /**
- * 广东厨师
+ * 广东菜品
  *
  * @author Jef
  * @date 2021/12/11

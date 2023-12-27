@@ -1,8 +1,7 @@
 package com.jef.designpattern.action.chainOfResponsibility;
 
-import com.jef.util.PrintUtil;
-
 import com.alibaba.fastjson.JSON;
+import com.jef.util.PrintUtil;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -19,6 +18,7 @@ public class Level3AuthLink extends AuthLink {
         super(levelUserId, levelUserName);
     }
 
+    @Override
     public void doAuth(String uId, String orderId, Date billDate) {
         Date date = AuthService.queryAuthInfo(levelUserId, orderId);
         if (null == date) {

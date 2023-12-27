@@ -1,9 +1,8 @@
 package com.jef.designpattern.action.chainOfResponsibility;
 
+import com.google.common.collect.Lists;
 import com.jef.constant.BasicConstant;
 import com.jef.util.PrintUtil;
-
-import com.google.common.collect.Lists;
 import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
@@ -57,11 +56,11 @@ public class ChainOfResponsibilityTest {
      */
     @Test
     public void testFixedNodeByDuty() throws ParseException {
-        NodeFixedAuthLink authLinkTwo = new NodeFixedAuthLink("0000103", "王工", 2);
-        NodeFixedAuthLink authLinkOne = new NodeFixedAuthLink("0000002", "邓经理", 1);
+        NodeFixedAuthLink authLinkOne = new NodeFixedAuthLink("0000103", "王工", 2);
+        NodeFixedAuthLink authLinkTwo = new NodeFixedAuthLink("0000002", "邓经理", 1);
         NodeFixedAuthLink authLinkThree = new NodeFixedAuthLink("0000001", "涂总", 0);
         // 模拟数据库设计好的固定审批流，不管取出来的顺序有没有排序
-        List<NodeFixedAuthLink> authLinkList = Lists.newArrayList();
+        /*List<NodeFixedAuthLink> authLinkList = Lists.newArrayList();
         authLinkList.add(authLinkOne);
         authLinkList.add(authLinkTwo);
         authLinkList.add(authLinkThree);
@@ -78,7 +77,17 @@ public class ChainOfResponsibilityTest {
                 level1AuthLink = new Level1AuthLink(authLink.levelUserId, authLink.levelUserName);
             }
         }
-        AuthLink authLink = level3AuthLink.appendNext(level2AuthLink.appendNext(level1AuthLink));
+        AuthLink authLink = level3AuthLink.appendNext(level2AuthLink.appendNext(level1AuthLink));*/
+
+        // 模拟数据库设计好的固定审批流，取出来的顺序需要按照审批顺序
+        List<NodeFixedAuthLink> authLinkList = Lists.newArrayList();
+        authLinkList.add(authLinkOne);
+        authLinkList.add(authLinkTwo);
+        authLinkList.add(authLinkThree);
+        for (int i = 0; i < authLinkList.size() - 1; i++) {
+            authLinkList.get(i).appendNext(authLinkList.get(i + 1));
+        }
+        AuthLink authLink = authLinkList.get(0);
         // 订单ID
         String orderId = BasicConstant.FIRST_ORDER_ID;
         SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

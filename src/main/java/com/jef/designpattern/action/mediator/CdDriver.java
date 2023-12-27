@@ -13,25 +13,25 @@ public class CdDriver extends BaseColleague {
     /**
      * 光驱读出来的视频和音频
      */
-    private String videaAndSound;
+    private String videoAndSound;
 
     /**
      * 获取光驱读取出来的视频和音频
      * @return 光驱读取出来的视频和音频
      */
-    public String getVideaAndSound() {
-        return videaAndSound;
+    public String getVideoAndSound() {
+        return videoAndSound;
     }
 
-    public void setVideaAndSound(String videaAndSound) {
-        this.videaAndSound = videaAndSound;
+    public void setVideoAndSound(String videoAndSound) {
+        this.videoAndSound = videoAndSound;
     }
 
     /**
      * 读取光盘，业务方法
      */
-    public void readCd() {
-        this.setVideaAndSound("科幻大片视频,科幻大片音频");
+    public void readCd(String videoAndSound) {
+        this.setVideoAndSound(videoAndSound);
         // 通知主板，自己的状态发生了改变
         this.getMediator().changeed(this);
     }

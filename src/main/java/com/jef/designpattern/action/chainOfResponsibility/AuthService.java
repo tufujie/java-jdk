@@ -1,8 +1,7 @@
 package com.jef.designpattern.action.chainOfResponsibility;
 
-import com.jef.util.PrintUtil;
-
 import com.alibaba.fastjson.JSON;
+import com.jef.util.PrintUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -35,7 +34,7 @@ public class AuthService {
         authMap.put(uId.concat(orderId), new Date());
         AuthLink next = authLink.next();
         if (null == next) {
-            authInfo = new AuthInfo("0000", "单号：", orderId, " 状态：二级审批人【", levelUserName, "】为最后一个审批通过节点，审批时间：", f.format(new Date()));
+            authInfo = new AuthInfo("0000", "单号：", orderId, " 状态：审批人【", levelUserName, "】为最后一个审批通过节点，审批时间：", f.format(new Date()));
             PrintUtil.printf("%s", JSON.toJSONString(authInfo));
             return;
         }
