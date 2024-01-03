@@ -1,12 +1,11 @@
 package com.jef;
 
-import com.jef.constant.BasicConstant;
-import com.jef.entity.User;
-import com.jef.util.BusinessUtil;
-
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
+import com.jef.constant.BasicConstant;
+import com.jef.entity.User;
+import com.jef.util.BusinessUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -45,8 +44,10 @@ public class LocalCacheTest {
                             }
 
                         });
+        // 刷进缓存
         cache.refresh(BasicConstant.ID);
         cache.refresh(BasicConstant.ID_TWO);
+        // 从缓存获取
         User user = cache.get(BasicConstant.ID);
         Assertions.assertEquals(BasicConstant.ID, user.getId());
     }

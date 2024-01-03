@@ -1,8 +1,7 @@
 package com.jef.io;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Scanner;
 
 /**
  * 遍历文件夹文件批量修改文件名
@@ -11,10 +10,6 @@ import java.util.List;
  * @date 2023/12/28
  */
 public class TraverseFileBatchRename {
-    private static final String DIRECTORY_PATH = "";
-
-    // md文件只写标题的大小
-    private static List<String> FILE_LIST = new ArrayList<String>();
 
     /**
      * 真正递归的方法
@@ -37,10 +32,14 @@ public class TraverseFileBatchRename {
     }
 
     public static void main(String[] args) throws Exception {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("请输入目录、修改前、修改后");
+        String allValue = scanner.nextLine();
+        String[] arr = allValue.split(" ");
         TraverseFileBatchRename traverseFile = new TraverseFileBatchRename();
-        if (args.length < 3) {
+        if (arr.length < 3) {
             throw new Exception("请输入目录、修改前、修改后");
         }
-        traverseFile.traverseFileBatchRename(args[0], args[1], args[2]);
+        traverseFile.traverseFileBatchRename(arr[0], arr[1], arr[2]);
     }
 }
