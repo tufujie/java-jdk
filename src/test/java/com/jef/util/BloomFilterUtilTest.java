@@ -1,10 +1,9 @@
 package com.jef.util;
 
-import com.jef.redis.RedisJavaUtil;
-
 import cn.hutool.bloomfilter.BitMapBloomFilter;
 import com.google.common.hash.BloomFilter;
 import com.google.common.hash.Funnels;
+import com.jef.redis.RedisJavaUtil;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.redisson.api.RBloomFilter;
@@ -52,7 +51,7 @@ public class BloomFilterUtilTest {
     @DisplayName("Hutool布隆过滤器")
     @Test
     void testHutoolBloom() {
-        int n = 1_0000;
+        int n = 100_0000;
         BitMapBloomFilter bitMapBloomFilter = new BitMapBloomFilter(5);
         for (int i = 0; i < n; i++) {
             bitMapBloomFilter.add(String.valueOf(i));

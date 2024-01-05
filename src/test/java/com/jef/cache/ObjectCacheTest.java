@@ -29,6 +29,7 @@ public class ObjectCacheTest {
         conn.setHostName("127.0.0.1");
         conn.setPort(6379);
         conn.setUsePool(true);
+        conn.setPassword("root");
         // 默认16个库中的第一个库，可以设置存储的库，从0开始
 //        conn.setDatabase(1);
         conn.afterPropertiesSet();

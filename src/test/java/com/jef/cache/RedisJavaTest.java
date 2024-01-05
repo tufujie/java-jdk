@@ -1,6 +1,9 @@
 package com.jef.cache;
 
+import com.alibaba.fastjson.JSONObject;
 import com.jef.constant.BasicConstant;
+import com.jef.constant.BasicList;
+import com.jef.entity.User;
 import com.jef.redis.RedisJavaUtil;
 import com.jef.util.PrintUtil;
 import org.junit.jupiter.api.Assertions;
@@ -11,6 +14,8 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Tuple;
 import redis.clients.jedis.params.SetParams;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -55,6 +60,7 @@ public class RedisJavaTest {
 
     /**
      * Redis Java List(列表) 实例
+     * 数据列表、最近搜索
      */
     @Test
     public void testSetAndGetList() {
@@ -63,7 +69,9 @@ public class RedisJavaTest {
         jedis.lpush(key, "Runoob");
         jedis.lpush(key, "Google");
         jedis.lpush(key, "Taobao");
-        // 获取存储的数据并输出
+//        jedis.lpop(key);
+        // lpush lpop 或者 rpush rpop后进先出->栈
+        // 获取存储的数据并输出，从左到右
         List<String> list = jedis.lrange(key, 0, -1);
         for (String s : list) {
             System.out.println("列表项为: " + s);
@@ -79,6 +87,7 @@ public class RedisJavaTest {
         String key = "site-list";
         // 存储数据到列表中
         // 保持队列有最新的10个
+        // rpush lpop，先进先出->队列
         for (int i = 1; i <= 20; i++) {
             List<String> list = jedis.lrange(key, 0, -1);
             if (list.size() >= 10) {
@@ -116,6 +125,7 @@ public class RedisJavaTest {
 
     /**
      * Redis Java SortedSet(有序集合) 实例
+     * 排行、热搜
      */
     @Test
     public void testGetSetAndGetZSet() {
@@ -129,7 +139,7 @@ public class RedisJavaTest {
         PrintUtil.printSplitLine();
 
         Set<Tuple> rankRevSet = jedis.zrevrangeWithScores(key, 0, -1);
-        System.out.println("正排行=" + rankRevSet);
+        System.out.println("正排行，从大到小=" + rankRevSet);
         Set<String> rankRevSetV2 = jedis.zrevrange(key, 0L, 2L);
         System.out.println("正排行V2=" + rankRevSetV2);
         Set<Tuple> rankSet = jedis.zrangeWithScores(key, 0L, 2L);
@@ -260,6 +270,36 @@ public class RedisJavaTest {
         System.out.println("uv: " + uv);
         // 重复执行时，需要删除原先的
         // jedis.del("uv");
+    }
+
+    @Test
+    @DisplayName("压缩解压缩")
+    void testCompress() {
+        List<User> userList = BasicList.getUserList();
+        String zipBefore = JSONObject.toJSONString(userList);
+        System.out.println("压缩后大小：" + zipBefore.getBytes().length + "字节");
+        String gzip = RedisJavaUtil.compress(zipBefore);
+        System.out.println("压缩后大小：" + gzip.getBytes().length + "字节");
+        String compressKey = "compressKey";
+        jedis.set(compressKey, gzip);
+        String json = jedis.get(compressKey);
+        zipBefore = RedisJavaUtil.uncompress(json);
+        List<User> userBefore = JSONObject.parseObject(zipBefore, List.class);
+        Assertions.assertEquals(userList.size(), userBefore.size());
+    }
+
+    @Test
+    @DisplayName("热搜")
+    void testHatSearch() {
+        String key = "serachKey";
+        List<String> searchNameList = new ArrayList<>(Arrays.asList("a", "b", "c", "a", "a", "b", "d"));
+        for (String searchName : searchNameList) {
+            jedis.zincrby(key, 1, searchName);
+        }
+        Set<Tuple> rankRevSet = jedis.zrevrangeWithScores(key, 0, -1);
+        System.out.println("正排行，从大到小=" + rankRevSet);
+        Set<String> rankRevSetV2 = jedis.zrevrange(key, 0L, 2L);
+        System.out.println("热搜前3名=" + rankRevSetV2);
     }
 
 }
