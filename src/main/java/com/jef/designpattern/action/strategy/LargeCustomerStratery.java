@@ -1,5 +1,8 @@
 package com.jef.designpattern.action.strategy;
 
+import com.google.common.collect.ImmutableList;
+
+import java.math.BigDecimal;
 import java.util.Map;
 
 /**
@@ -22,6 +25,18 @@ public class LargeCustomerStratery implements ICustomerStrategy {
     }
 
     @Override
+    public BigDecimal calcPriceV2(OneRequest abstractOneRequest) {
+        System.out.println(this.getCustomerType() + " calcPriceV2");
+        return BigDecimal.ZERO;
+    }
+
+    @Override
+    public BigDecimal calcPriceV3(TwoRequest request) {
+        System.out.println(this.getCustomerType() + " calcPriceV3");
+        return BigDecimal.ZERO;
+    }
+
+    @Override
     public String getCustomerType() {
         return "large";
     }
@@ -34,5 +49,13 @@ public class LargeCustomerStratery implements ICustomerStrategy {
         System.out.println(map.size());
     }
 
-
+    @Override
+    public void register() {
+        // 向注册中心，注册该处理期可以处理的 请求类型集合
+        HandlerRegister.INSTANCE.register(this,
+                ImmutableList.<Class<? extends AbstractHandlerRequest>>builder()
+                        .add(OneRequest.class)
+                        .add(TwoRequest.class)
+                        .build());
+    }
 }

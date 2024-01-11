@@ -76,4 +76,29 @@ public class StrategyClientTest {
         }
     }
 
+    @Test
+    public void testGetPriceV6() throws Exception {
+        new LargeCustomerStratery().register();
+        new NormalCustomerStratery().register();
+        new OldCustomerStratery().register();
+
+        HandlerDispatcher handlerDispatcher = new HandlerDispatcher();
+        List<Customer> customerList = CustomerBuilder.generatePriceList();
+        for (Customer customer : customerList) {
+            // 构造请求参数
+            OneRequest oneRequest = new OneRequest();
+            oneRequest.setCustomerType(customer.getType());
+            // 请求
+            System.out.println("计算价格" + handlerDispatcher.dispatch(oneRequest));
+
+            // 构造请求参数
+            TwoRequest twoRequest = new TwoRequest();
+            twoRequest.setCustomerType(customer.getType());
+            // 请求
+            System.out.println("计算价格" + handlerDispatcher.dispatch(twoRequest));
+        }
+
+
+    }
+
 }

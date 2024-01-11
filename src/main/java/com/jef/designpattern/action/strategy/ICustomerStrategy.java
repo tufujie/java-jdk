@@ -1,5 +1,6 @@
 package com.jef.designpattern.action.strategy;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,7 +10,7 @@ import java.util.Map;
  * @author Jef
  * @date 2019/2/13
  */
-public interface ICustomerStrategy {
+public interface ICustomerStrategy extends Handler {
 
     Map<String, ICustomerStrategy> beanMap = new HashMap<>();
 
@@ -21,10 +22,17 @@ public interface ICustomerStrategy {
      */
     double calcPrice(Customer customer);
 
+
+    BigDecimal calcPriceV2(OneRequest abstractOneRequest);
+
+    BigDecimal calcPriceV3(TwoRequest request);
+
     /**
      * 获取客户类型
      *
      * @return
      */
     String getCustomerType();
+
+
 }
