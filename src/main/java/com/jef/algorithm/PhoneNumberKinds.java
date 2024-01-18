@@ -20,7 +20,9 @@ public class PhoneNumberKinds {
         int[] arr = new int[100000000 / 32];
         for (String number : numberList) {
             int num = Integer.valueOf(number);
+            // 数组的位置
             int index = num / 32;
+            // 位图的位置
             int bitIndex = num % 32;
             // 对应bit位设置为1
             arr[index] |= (1 << bitIndex);
