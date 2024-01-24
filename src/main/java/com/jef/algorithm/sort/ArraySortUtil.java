@@ -1,5 +1,6 @@
 package com.jef.algorithm.sort;
 
+import com.jef.util.BitUtil;
 import com.jef.util.PrintUtil;
 
 import java.util.ArrayList;
@@ -842,6 +843,23 @@ public class ArraySortUtil {
             }
         };
         return newComparator;
+    }
+
+    public static int[] bitSort(int[] array) {
+        int[] arrayTemp = new int[array.length / 32 + 1];
+        for (int temp : array) {
+            BitUtil.set(arrayTemp, temp);
+        }
+        int[] result = new int[array.length];
+        int k = 0;
+        for (int i = arrayTemp.length - 1; i >= 0; i--) {
+            for (int j = 31; j >= 0; j--) {
+                if (BitUtil.read(arrayTemp[i], j) == 1) {
+                    result[k++] = i * 32 + j;
+                }
+            }
+        }
+        return result;
     }
 
 }

@@ -2,7 +2,6 @@ package com.jef.algorithm.sort;
 
 import com.jef.constant.BasicConstant;
 import com.jef.util.PrintUtil;
-
 import org.junit.Test;
 
 /**
@@ -128,6 +127,11 @@ public class ArraySortUtilTest {
     @Test
     public void testReOrderArray() {
         PrintUtil.printArray(ArraySortUtil.reOrderArray(BasicConstant.INT_ARRAY));
+    }
+
+    @Test
+    public void testBitSort() {
+        PrintUtil.printArray(ArraySortUtil.bitSort(BasicConstant.INT_ARRAY));
     }
 
 }

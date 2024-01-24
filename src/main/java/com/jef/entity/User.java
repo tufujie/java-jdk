@@ -1,8 +1,7 @@
 package com.jef.entity;
 
-import com.jef.util.DateTimeUtil;
-
 import com.google.common.collect.Lists;
+import com.jef.util.DateTimeUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import org.apache.solr.client.solrj.beans.Field;
@@ -24,6 +23,12 @@ import java.util.Objects;
 public class User implements Serializable {
 
     private static final long serialVersionUID = -8114343202784128116L;
+
+    static {
+        Dog dog = new Dog();
+        System.out.println("我有一只小狗,他的初始类加载器是" + User.class.getClassLoader() + ",他的定义类加载器是" + dog.getClass().getClassLoader());
+    }
+
     @Field
     private Long id;
     @Field
