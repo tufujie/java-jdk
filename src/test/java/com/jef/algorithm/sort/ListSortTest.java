@@ -45,6 +45,22 @@ public class ListSortTest {
                 Integer.compare(o2.getDiscountType(), o1.getDiscountType()));
         System.out.println("排序后");
         System.out.println(orderInfoList);
+
+        orderInfoList = BasicList.getOrderInfoList();
+        System.out.println("未排序前2");
+        System.out.println(orderInfoList);
+        PrintUtil.printSplitLine();
+        // 多重排序，这种写法比较清晰
+        // 先按照数量递减
+        // 然后按照折扣方式递减
+        orderInfoList.sort((o1, o2) -> {
+            if (o1.getNum() != o2.getNum()) {
+                return o2.getNum().compareTo(o1.getNum());
+            }
+            return Integer.compare(o2.getDiscountType(), o1.getDiscountType());
+        });
+        System.out.println("排序后2");
+        System.out.println(orderInfoList);
     }
 
     @Test
@@ -114,6 +130,16 @@ public class ListSortTest {
         // 字符串时间排序
 //        Collections.sort(orderInfoList, (o1, o2) -> o2.getExtraOrderId().compareTo(o1.getExtraOrderId()));
         Collections.sort(orderInfoList, Comparator.comparing(OrderInfo::getPayTime));
+        System.out.println("排序后");
+        System.out.println(orderInfoList);
+    }
+
+    @Test
+    void testSortByComparator() {
+        List<OrderInfo> orderInfoList = BasicList.getOrderInfoList();
+        System.out.println("未排序前");
+        System.out.println(orderInfoList);
+        orderInfoList.sort(Comparator.comparing(OrderInfo::getNum, Comparator.reverseOrder()));
         System.out.println("排序后");
         System.out.println(orderInfoList);
     }

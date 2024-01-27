@@ -134,4 +134,9 @@ public class ArraySortUtilTest {
         PrintUtil.printArray(ArraySortUtil.bitSort(BasicConstant.INT_ARRAY));
     }
 
+    @Test
+    public void testPriorityQueueSort() {
+        PrintUtil.printArray(ArraySortUtil.priorityQueueSort(BasicConstant.INT_ARRAY));
+    }
+
 }

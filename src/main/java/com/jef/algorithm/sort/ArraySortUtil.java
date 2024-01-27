@@ -3,10 +3,7 @@ package com.jef.algorithm.sort;
 import com.jef.util.BitUtil;
 import com.jef.util.PrintUtil;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.*;
 
 /**
  * 数组排序工具类
@@ -858,6 +855,31 @@ public class ArraySortUtil {
                     result[k++] = i * 32 + j;
                 }
             }
+        }
+        return result;
+    }
+
+    /**
+     * 小顶堆实现排序
+     * 逆序
+     *
+     * @param array
+     * @return
+     */
+    public static int[] priorityQueueSort(int[] array) {
+        PriorityQueue<Integer> heap = new PriorityQueue<>();
+        for (int num : array) {
+            heap.offer(num);
+        }
+        int[] nums = new int[array.length];
+        int i = 0;
+        // PriorityQueue默认小顶堆，即优先级最小的元素位于队列头部。所以nums是正序
+        while (!heap.isEmpty()) {
+            nums[i++] = heap.poll();
+        }
+        int[] result = new int[array.length];
+        for (int j = nums.length - 1; j >= 0; j--) {
+            result[j] = nums[nums.length - j - 1];
         }
         return result;
     }
